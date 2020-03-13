@@ -40,31 +40,36 @@ add_action('after_setup_theme', 'JMA_GHB_after_setup_theme');
 
 function jma_ghb_enqueue_scripts()
 {
-    $site_url = network_site_url('/');
-    wp_enqueue_style('jma_ghb_uagb-block-css-css', $site_url . 'wp-content/plugins/ultimate-addons-for-gutenberg/dist/blocks.style.css');
-    wp_dequeue_style('uagb-block-css-css');
+    $site_url = site_url('/');
+    //globalize the main uagb stylesheet (couldn't just enqueue 'uagb-block-css' for some reason )
+    wp_enqueue_style('jma_ghb_uagb-block-css', $site_url . 'wp-content/plugins/ultimate-addons-for-gutenberg/dist/blocks.style.css');
+    //if the plugin tries to re-enqueue we block
+    wp_dequeue_style('uagb-block-css');
+
+
+    //block specific styles
+    $return = '@media(min-width:768px){.site-container .navbar .jma-positioned.jma-right >ul {float:right}.site-container .navbar .jma-positioned.jma-left >ul {float:left}.site-container .navbar .jma-positioned.jma-center > ul {text-align:center;float:none;font-size:0}.site-container .navbar .jma-positioned.jma-center > ul ul {text-align:left;min-width:200px}.site-container .navbar .jma-positioned.jma-center >ul > li {display:inline-block;float:none}}';
 
     $locations = array('header', 'footer');
 
-    $return = '.site-container .navbar .jma-right >ul {float:right}.site-container .navbar .jma-left >ul {float:left}.site-container .navbar .jma-center > ul {text-align:center;float:none;font-size:0}.site-container .navbar .jma-center > ul ul {text-align:left;min-width:200px}.site-container .navbar .jma-center >ul > li {display:inline-block;float:none}.site-container .navbar .jma-center >ul > li a{font-size:20px}';
     foreach ($locations as $location) {
+        //$post is the post object for the header and footer custom posts
+        // that hold the header and footer content.
         $post = get_post(get_theme_mod('jma_ghb_' . $location . '_post'));
 
         if (function_exists('has_blocks') && has_blocks($post->post_content)) {
             $blocks = parse_blocks($post->post_content);
 
-            /*if (is_array($blocks)) {
-                $block_array = jma_ghb_block_handler($blocks);
-            }*/
             if (is_array($blocks)) {
+                //modified version of the main plugins's UAGB_Helper::get_stylesheet method
                 $return .= jma_ghb_get_stylesheet($blocks);
             }
         }
     }
-    wp_add_inline_style('jma_ghb_uagb-block-css-css', $return);
+    wp_add_inline_style('jma_ghb_uagb-block-css', $return);
 }
 
-
+//jma_ghb_get_scripts
 function jma_ghb_template_redirect()
 {
     add_action('wp_enqueue_scripts', 'jma_ghb_enqueue_scripts', 999);

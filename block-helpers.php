@@ -224,3 +224,84 @@ function jma_ghb_get_stylesheet($blocks)
 
     return $desktop . $tab_styling_css . $mob_styling_css;
 }
+
+
+
+
+
+
+
+
+
+
+
+function jma_ghb_get_block_js($block)
+{
+
+            // @codingStandardsIgnoreStart
+
+    $block = ( array ) $block;
+
+    $name = $block['blockName'];
+    $js  = '';
+
+    if (! isset($name)) {
+        return;
+    }
+
+    if (isset($block['attrs']) && is_array($block['attrs'])) {
+        $blockattr = $block['attrs'];
+        if (isset($blockattr['block_id'])) {
+            $block_id = $blockattr['block_id'];
+        }
+    }
+
+    switch ($name) {
+                case 'uagb/testimonial':
+                    $js .= UAGB_Block_Helper::get_testimonial_js($blockattr, $block_id);
+                    break;
+
+                case 'uagb/blockquote':
+                    $js .= UAGB_Block_Helper::get_blockquote_js($blockattr, $block_id);
+                    break;
+
+                case 'uagb/social-share':
+                    $js .= UAGB_Block_Helper::get_social_share_js($blockattr, $block_id);
+                    break;
+
+                case 'uagb/table-of-contents':
+                    $js .= UAGB_Block_Helper::get_table_of_contents_js($blockattr, $block_id);
+                    break;
+
+                default:
+                    // Nothing to do here.
+                    break;
+            }
+
+    if (isset($block['innerBlocks'])) {
+        foreach ($block['innerBlocks'] as $j => $inner_block) {
+            // Get JS for the Block.
+            $js .= jma_ghb_get_block_js($inner_block);
+        }
+    }
+
+    return $js;
+
+    // @codingStandardsIgnoreEnd
+}
+
+
+function jma_ghb_get_scripts($blocks)
+{
+    foreach ($blocks as $i => $block) {
+        if (is_array($block)) {
+
+                        // Get JS for the Block.
+            $script .= jma_ghb_get_block_js($block);
+        }
+    }
+
+    if (! empty($script)) {
+        $script = '( function( $ ) { ' . $script . '})(jQuery);';
+    }
+}

@@ -64,13 +64,10 @@ function JMA_GHB_menu($input)
     $align = $input['align'];
     if (isset($input['nav_val'])) {//genesis_do_subnav();
         if ($input['nav_val'] == 'primary') {
-            /*$obj = new jma_ghb_align_object();
-            $obj->align = $align;
-            add_filter('JMA_GBS_nav_menu_markup_filter_inner', array( $obj, 'class_change' ));*/
             add_filter(
                 'JMA_GBS_nav_menu_markup_filter_inner',
                 function ($content) use ($align) {
-                    return str_replace('<div class="outer">', '<div class="jma-' . $align . '">', $content);
+                    return str_replace('<div class="outer">', '<div class="jma-positioned jma-' . $align . '">', $content);
                 }
             );
             genesis_do_nav();

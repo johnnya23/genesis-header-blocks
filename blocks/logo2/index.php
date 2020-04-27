@@ -28,7 +28,7 @@ function organic_profile_block()
 
     // Scripts.
     wp_enqueue_script(
-        'organic-profile-block-script', // Handle.
+        'jma_ghb_menu-block-script', // Handle.
         plugins_url('block.js', __FILE__), // Block.js: We register the block here.
         array( 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-editor' ), // Dependencies, defined above.
         filemtime(plugin_dir_path(__FILE__) . 'block.js'),
@@ -80,7 +80,7 @@ function organic_profile_block()
                     'type' => 'string',
                 ),
             ),
-            'editor_script' => 'organic-profile-block-script',
+            'editor_script' => 'jma_ghb_menu-block-script',
             'render_callback' => 'JMA_GHB_logo_callback'
         )
     );

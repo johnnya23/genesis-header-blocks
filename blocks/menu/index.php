@@ -1,8 +1,8 @@
 <?php
 /**
- * BLOCK: Profile
+ * BLOCK: Genesis Menu
  *
- * Gutenberg Custom Youtube List Box
+ * Gutenberg Genesis Menu Block
  *
  * @since   2.0
  * @package JMA
@@ -35,6 +35,10 @@
         filemtime(plugin_dir_path(__FILE__) . 'block.js'),
         true
     );
+     wp_register_style(
+         'JMA_ghb_superfish_css',
+         plugins_url('/jma-bootstrap-genesis/dist/css/superfish.min.css')
+     );
 
      // Here we actually register the block with WP, again using our namespacing.
      // We also specify the editor script to be used in the Gutenberg interface.
@@ -50,7 +54,8 @@
                 'type' => 'string',
             )
         ),
-        'editor_script' => 'jma-ghb-menu-block-script',
+        'editor_script' => array('jma-ghb-menu-block-script'),
+        'editor_style' => array('JMA_ghb_superfish_css'),
         'render_callback' => 'JMA_GHB_menu',
     ));
  } // End function JMA_GHB_block().
@@ -61,7 +66,10 @@
 function JMA_GHB_menu($input)
 {
     ob_start();
-    $align = $input['align'];
+    $align = 'left';
+    if (isset($input['align'])) {
+        $align = $input['align'];
+    }
     if (isset($input['nav_val'])) {//genesis_do_subnav();
         if ($input['nav_val'] == 'primary') {
             add_filter(

@@ -423,7 +423,8 @@ class JMA_GHB_CPT
             'show_in_rest' => true,
             'rewrite' => array(
                 'slug' => $slug,
-            )
+            ),
+            'supports' => array('title', 'editor', 'revisions', 'thumbnail', 'custom-fields')
         );
 
         // Merge user submitted options with defaults.

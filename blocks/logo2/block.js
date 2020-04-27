@@ -1,19 +1,20 @@
 (function(blocks, editor, components, i18n, element) {
-    var __ = i18n.__
-    var el = element.createElement
-    var registerBlockType = blocks.registerBlockType
-    var RichText = editor.RichText
-    var BlockControls = editor.BlockControls
-    var AlignmentToolbar = editor.AlignmentToolbar
-    var MediaUpload = editor.MediaUpload
-    var InspectorControls = editor.InspectorControls
-    var PanelBody = components.PanelBody
-    var TextControl = components.TextControl
+    var __ = i18n.__,
+        el = element.createElement,
+        registerBlockType = blocks.registerBlockType,
+        RichText = editor.RichText,
+        BlockControls = editor.BlockControls,
+        AlignmentToolbar = editor.AlignmentToolbar,
+        MediaUpload = editor.MediaUpload,
+        InspectorControls = editor.InspectorControls,
+        PanelBody = components.PanelBody,
+        TextControl = components.TextControl,
+        RadioControl = components.RadioControl
 
     registerBlockType('jma-ghb/logo-block', { // The name of our block. Must be a string with prefix. Example: my-plugin/my-custom-block.
         title: __('Logo'), // The title of our block.
         description: __('A custom block for displaying Logo.'), // The description of our block.
-        icon: 'businessman', // Dashicon icon for our block. Custom icons can be added using inline SVGs.
+        icon: 'megaphone', // Dashicon icon for our block. Custom icons can be added using inline SVGs.
         category: 'common', // The category of the block.
         supports: {
             align: true,

@@ -33,6 +33,10 @@ define('JMA_GHB_BASE_DIRECTORY', plugin_dir_path(__FILE__));
   */
 define('JMA_GHB_BASE_URI', plugin_dir_url(__FILE__));
 
+if (! isset($content_width)) {
+    $content_width = get_theme_mod('jma_gbs_site_width');
+}
+
 function JMA_GHB_load_files()
 {
     $folders = array('lib');
@@ -58,6 +62,10 @@ function jma_ghb_autoloader($class_name)
 
 function JMA_GHB_after_setup_theme()
 {
+    function theme_name_setup()
+    {
+        //add_theme_support('align-wide');
+    }
     foreach (glob(JMA_GHB_BASE_DIRECTORY . 'blocks/*/index.php') as $file) {
         include $file;
     }
@@ -66,50 +74,6 @@ add_action('after_setup_theme', 'JMA_GHB_after_setup_theme');
 
 $headers = new JMA_GHB_CPT('header');
 $footers = new JMA_GHB_CPT('footer');
-
-function jma_ghb_enqueue_scripts()
-{
-    $plugins_url = plugins_url('/');
-    //globalize the main uagb stylesheet (couldn't just enqueue 'uagb-block-css' for some reason )
-    wp_enqueue_style('jma_ghb_uagb-block-css', $plugins_url . 'ultimate-addons-for-gutenberg/dist/blocks.style.css');
-    //if the plugin tries to re-enqueue we block
-    wp_dequeue_style('uagb-block-css');
-
-
-    //block specific styles
-    $css = '@media(min-width:768px){.site-container .navbar .jma-positioned.jma-right >ul {float:right}.site-container .navbar .jma-positioned.jma-left >ul {float:left}.site-container .navbar .jma-positioned.jma-center > ul {text-align:center;float:none;font-size:0}.site-container .navbar .jma-positioned.jma-center > ul ul {text-align:left;min-width:200px}.site-container .navbar .jma-positioned.jma-center >ul > li {display:inline-block;float:none}}';
-
-    $mods = jma_gbs_get_theme_mods();
-    $footer_post_id = jma_ghb_get_header_footer($mods, 'footer');
-    $header_post_id = jma_ghb_get_header_footer($mods, 'header');
-
-    $ids = array($header_post_id, $footer_post_id);
-
-    foreach ($ids as $id) {
-        //$post is the post object for the header and footer custom posts
-        // that hold the header and footer content.
-        $post = get_post($id);
-
-        if (function_exists('has_blocks') && has_blocks($post->post_content)) {
-            $blocks = parse_blocks($post->post_content);
-
-            if (is_array($blocks)) {
-                //modified version of the main plugins's UAGB_Helper::get_stylesheet method
-                $css .= jma_ghb_get_stylesheet($blocks);
-            }
-        }
-    }
-    wp_add_inline_style('jma_ghb_uagb-block-css', $css);
-}
-
-//
-function jma_ghb_template_redirect()
-{
-    add_action('wp_enqueue_scripts', 'jma_ghb_enqueue_scripts', 999);
-}
-add_action('template_redirect', 'jma_ghb_template_redirect', 999);
-
-
 
 function jma_ghb_customizer_control($wp_customize)
 {
@@ -124,6 +88,8 @@ function jma_ghb_customizer_control($wp_customize)
 }
 add_action('customize_register', 'jma_ghb_customizer_control');
 
+
+
 /**
  *
 
@@ -131,6 +97,7 @@ add_action('customize_register', 'jma_ghb_customizer_control');
 function JMA_GHB_unload_framework()
 {
     if (defined('GENESIS_LOADED_FRAMEWORK')) {
+        add_filter('body_class', 'jma_ghb_body_filter');
         remove_action('genesis_after_header', 'genesis_do_subnav');
         remove_action('genesis_after_header', 'genesis_do_nav');
 
@@ -145,11 +112,8 @@ add_action('template_redirect', 'JMA_GHB_unload_framework', 99);
 
 function JMA_GHB_do_header()
 {
-    if (function_exists('jma_gbs_get_theme_mods')) {
-        $mods = jma_gbs_get_theme_mods();
-    }
-    if (isset($mods['jma_ghb_home_header_post']) && $mods['jma_ghb_home_header_post']) {
-        $header_post_id = jma_ghb_get_header_footer($mods, 'header');
+    $header_post_id = jma_ghb_get_header_footer('header');
+    if ($header_post_id) {
         echo apply_filters('the_content', get_the_content(null, false, $header_post_id));
     } else {
         echo 'create and set a header';
@@ -158,13 +122,25 @@ function JMA_GHB_do_header()
 
 function JMA_GHB_do_footer()
 {
-    if (function_exists('jma_gbs_get_theme_mods')) {
-        $mods = jma_gbs_get_theme_mods();
-    }
-    if (isset($mods['jma_ghb_home_footer_post']) && $mods['jma_ghb_home_footer_post']) {
-        $footer_post_id = jma_ghb_get_header_footer($mods, 'footer');
+    $footer_post_id = jma_ghb_get_header_footer('footer');
+    if ($footer_post_id) {
         echo apply_filters('the_content', get_the_content(null, false, $footer_post_id));
     } else {
         echo 'create and set a footer';
     }
+}
+
+function jma_ghb_body_filter($cl)
+{
+    global $post;
+
+    if (get_post_meta($post->ID, '_jma_ghb_header_footer_key', true)) {
+        $page_options = get_post_meta($post->ID, '_jma_ghb_header_footer_key', true);
+    }
+
+
+    if (isset($page_options['sticky-header']) && $page_options['sticky-header']) {
+        $cl[] = 'sticky';
+    }
+    return $cl;
 }

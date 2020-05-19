@@ -35,6 +35,7 @@
         filemtime(plugin_dir_path(__FILE__) . 'block.js'),
         true
     );
+     wp_register_style('jma-ghb-featured-back-style', JMA_GHB_BASE_URI .'style.css');
      wp_register_style(
          'JMA_ghb_superfish_css',
          plugins_url('/jma-bootstrap-genesis/dist/css/superfish.min.css')
@@ -55,7 +56,7 @@
             )
         ),
         'editor_script' => array('jma-ghb-menu-block-script'),
-        'editor_style' => array('JMA_ghb_superfish_css'),
+        'editor_style' => array('JMA_ghb_superfish_css', 'jma-ghb-featured-back-style'),
         'render_callback' => 'JMA_GHB_menu',
     ));
  } // End function JMA_GHB_block().

@@ -16,6 +16,9 @@
             display_height: {
                 type: 'string'
             },
+            display_height_fallback: {
+                type: 'string'
+            },
             display_width: {
                 type: 'string'
             },
@@ -33,6 +36,7 @@
             var attributes = props.attributes,
                 display_width = props.attributes.display_width,
                 display_height = props.attributes.display_height,
+                display_height_fallback = props.attributes.display_height_fallback,
                 vertical_alignment = props.attributes.vertical_alignment,
                 mediaURL = props.attributes.mediaURL,
                 mediaID = props.attributes.mediaID,
@@ -97,11 +101,22 @@
 
                     el(TextControl, {
                         label: 'Height',
-                        help: 'use px, em, etc OR something like calc(100vh - 100px)',
+                        help: 'use px, em, etc OR maybe calc(100vh - 100px)',
                         value: display_height,
                         onChange: function(newValue) {
                             props.setAttributes({
                                 display_height: newValue
+                            });
+                        }
+                    }),
+
+                    el(TextControl, {
+                        label: 'Height Fallback for calc(optional)',
+                        help: 'a fallback for browsers that don\'t support calc',
+                        value: display_height_fallback,
+                        onChange: function(newValue) {
+                            props.setAttributes({
+                                display_height_fallback: newValue
                             });
                         }
                     }),
@@ -110,15 +125,19 @@
                         selected: vertical_alignment,
                         options: [{
                                 label: 'Top',
-                                value: '1'
+                                value: 'flex-start'
                             },
                             {
-                                label: 'Middle',
-                                value: '0'
+                                label: 'Center',
+                                value: 'center'
+                            },
+                            {
+                                label: 'Fill',
+                                value: 'space-between'
                             },
                             {
                                 label: 'Bottom',
-                                value: '2'
+                                value: 'flex-end'
                             }
                         ],
                         onChange: function(newValue) {

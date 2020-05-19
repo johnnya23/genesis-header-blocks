@@ -137,6 +137,10 @@
                             label: 'Content Type',
                             selected: content_type,
                             options: [{
+                                    label: 'Page Title',
+                                    value: '4'
+                                },
+                                {
                                     label: 'Image',
                                     value: '3'
                                 },
@@ -185,4 +189,4 @@
     window.wp.components,
     window.wp.i18n,
     window.wp.element
-)
+);

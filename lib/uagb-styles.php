@@ -2,13 +2,11 @@
 
 function jma_ghb_get_block_css($block)
 {
-
-            // @codingStandardsIgnoreStart
-
     $block = ( array ) $block;
-
-    $name = $block['blockName'];
-    $css  = array();
+    if (isset($block['blockName'])) {
+        $name = $block['blockName'];
+    }
+    $css = $final_block  = array();
     $block_id = '';
 
     if (! isset($name)) {
@@ -20,12 +18,6 @@ function jma_ghb_get_block_css($block)
         if (isset($blockattr['block_id'])) {
             $block_id = $blockattr['block_id'];
         }
-    }
-
-    UAGB_Helper::$current_block_list[] = $name;
-
-    if (strpos($name, 'uagb/') !== false) {
-        UAGB_Helper::$uag_flag = true;
     }
 
     switch ($name) {
@@ -142,36 +134,31 @@ function jma_ghb_get_block_css($block)
 
     if (isset($block['innerBlocks'])) {
         foreach ($block['innerBlocks'] as $j => $inner_block) {
-            if ('core/block' == $inner_block['blockName']) {
-                $id = (isset($inner_block['attrs']['ref'])) ? $inner_block['attrs']['ref'] : 0;
+            $final_block = $inner_block;
+            if ('core/block' == $inner_block['blockName'] && isset($inner_block['attrs']['ref'])) {
+                $id =  $inner_block['attrs']['ref'];
+                $content = get_post_field('post_content', $id);
 
-                if ($id) {
-                    $content = get_post_field('post_content', $id);
+                $reusable_blocks = parse_blocks($content);
+                $final_block = $reusable_blocks[0];
+            }
+            // Get CSS for the Block.
 
-                    $reusable_blocks = UAGB_Helper::parse($content);
+            $inner_block_css = jma_ghb_get_block_css($final_block);
 
-                    UAGB_Helper::$stylesheet .= $UAGB_Helper::get_stylesheet($reusable_blocks);
-                }
-            } else {
-                // Get CSS for the Block.
-                $inner_block_css = jma_ghb_get_block_css($inner_block);
+            $css_desktop = (isset($css['desktop']) ? $css['desktop'] : '');
+            $css_tablet = (isset($css['tablet']) ? $css['tablet'] : '');
+            $css_mobile = (isset($css['mobile']) ? $css['mobile'] : '');
 
-                $css_desktop = (isset($css['desktop']) ? $css['desktop'] : '');
-                $css_tablet = (isset($css['tablet']) ? $css['tablet'] : '');
-                $css_mobile = (isset($css['mobile']) ? $css['mobile'] : '');
-
-                if (isset($inner_block_css['desktop'])) {
-                    $css['desktop'] = $css_desktop . $inner_block_css['desktop'];
-                    $css['tablet'] = $css_tablet . $inner_block_css['tablet'];
-                    $css['mobile'] = $css_mobile . $inner_block_css['mobile'];
-                }
+            if (isset($inner_block_css['desktop'])) {
+                $css['desktop'] = $css_desktop . $inner_block_css['desktop'];
+                $css['tablet'] = $css_tablet . $inner_block_css['tablet'];
+                $css['mobile'] = $css_mobile . $inner_block_css['mobile'];
             }
         }
     }
 
     return $css;
-
-    // @codingStandardsIgnoreEnd
 }
 
 function jma_ghb_get_stylesheet($blocks)
@@ -188,23 +175,24 @@ function jma_ghb_get_stylesheet($blocks)
             if ('' === $block['blockName']) {
                 continue;
             }
+            $css = jma_ghb_get_block_css($block);
             if ('core/block' === $block['blockName']) {
                 $id = (isset($block['attrs']['ref'])) ? $block['attrs']['ref'] : 0;
 
                 if ($id) {
                     $content = get_post_field('post_content', $id);
 
-                    $reusable_blocks = UAGB_Helper::parse($content);
+                    $reusable_blocks = parse_blocks($content);
+                    $css = jma_ghb_get_stylesheet($reusable_blocks[0]);
                 }
-            } else {
-                // Get CSS for the Block.
-                $css = jma_ghb_get_block_css($block);
+            }
+            // Get CSS for the Block.
 
-                if (isset($css['desktop'])) {
-                    $desktop .= $css['desktop'];
-                    $tablet  .= $css['tablet'];
-                    $mobile  .= $css['mobile'];
-                }
+
+            if (isset($css['desktop'])) {
+                $desktop .= $css['desktop'];
+                $tablet  .= $css['tablet'];
+                $mobile  .= $css['mobile'];
             }
         }
     }

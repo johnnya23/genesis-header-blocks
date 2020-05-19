@@ -9,7 +9,7 @@ if (!function_exists('jma_ghb_add_header_input_box')) {
         foreach ($screens as $screen) {
             add_meta_box(
                 'jma_ghb_header_input_section',
-                __('Current Page Header Content', 'jma_ghb_textdomain'),
+                __('Current Page Configuration', 'jma_ghb_textdomain'),
                 'jma_ghb_header_input_box',
                 $screen,
                 'side',
@@ -38,7 +38,7 @@ if (!function_exists('jma_ghb_header_input_box')) {
         $screen_obj = get_current_screen();
 
         $default_featured = $screen_obj->post_type === 'page' ? 1 : 0;
-        $page_values = array('change_header_default' => 0,
+        $page_options = array('change_header_default' => 0,
             'change_footer_default' => 0,
             'slider_id' => ''
         );
@@ -48,22 +48,22 @@ if (!function_exists('jma_ghb_header_input_box')) {
         $footer_array = jma_gbh_get_header_footer('footer', false);
 
         if (get_post_meta($post->ID, '_jma_ghb_header_footer_key', true)) {
-            $page_values = get_post_meta($post->ID, '_jma_ghb_header_footer_key', true);
+            $page_options = get_post_meta($post->ID, '_jma_ghb_header_footer_key', true);
         }
-        //print_r($page_values);
+        //print_r($page_options);
         $slider_selections = array();
         $slider_selections = apply_filters('slider_array_filter', $slider_selections);
 
         ob_start();
         echo '<p></p>';
-        echo '<label for="change_header_default">';
-        _e('Change header display for this page', 'jma_ghb_textdomain');
-        echo '</label><br/><br/> ';
 
+        echo '<label for="change_header_default">';
+        _e('Change which header is displayed on this page', 'jma_ghb_textdomain');
+        echo '</label><br/><br/> ';
         echo '<select name="header_id">';
-        echo '<option value="0"'. selected($page_values['header_id'], '').'>Default</option>';
+        echo '<option value="0"'. selected($page_options['header_id'], '').'>Default</option>';
         foreach ($header_array as $i => $form_item) {
-            echo '<option value="'.$i.'"'.selected($page_values['header_id'], $i).'>'.$form_item.'</option>';
+            echo '<option value="'.$i.'"'.selected($page_options['header_id'], $i).'>'.$form_item.'</option>';
         }
         echo '</select><br/><br/>';
 
@@ -71,23 +71,30 @@ if (!function_exists('jma_ghb_header_input_box')) {
         _e('Image Choice -- if a "Featured Image" block was used in the header, you can change its display here', 'jma_ghb_textdomain');
         echo '</label><br/><br/> ';
         echo '<select name="slider_id">';
-        echo '<option value="0"'.selected($page_values['slider_id'], '').'>Default</option>';
-        echo '<option value="1"'.selected($page_values['slider_id'], '1').'>Featured Image</option>';
+        echo '<option value="0"'.selected($page_options['slider_id'], '').'>Default</option>';
+        echo '<option value="jma_featured"'.selected($page_options['slider_id'], 'jma_featured').'>Featured Image</option>';
         if (count($slider_selections)) {
             foreach ($slider_selections as $i => $form_item) {
-                echo '<option value="'.$i.'"'.selected($page_values['slider_id'], $i).'>'.$form_item.'</option>';
+                echo '<option value="'.$i.'"'.selected($page_options['slider_id'], $i).'>'.$form_item.'</option>';
             }
         }
         echo '</select><br/><br/>';
 
-        echo '<label for="change_footer_default">';
-        _e('Change footer display for this page', 'jma_ghb_textdomain');
+        echo '<label for="sticky-header">';
+        _e('Sticky header stays in same place as main content rolls over it', 'jma_textdomain');
         echo '</label><br/><br/> ';
+        echo '<select name="sticky-header">';
+        echo '<option value="0"'.selected($page_options['sticky-header'], 0).'>normal</option>';
+        echo '<option value="1"'.selected($page_options['sticky-header'], 1).'>sticky</option>';
+        echo '</select><br/><br/>';
 
+        echo '<label for="change_footer_default">';
+        _e('Change which footer is displayed on this page', 'jma_ghb_textdomain');
+        echo '</label><br/><br/> ';
         echo '<select name="footer_id">';
-        echo '<option value="0"'. selected($page_values['footer_id'], '').'>Default</option>';
+        echo '<option value="0"'. selected($page_options['footer_id'], '').'>Default</option>';
         foreach ($footer_array as $i => $form_item) {
-            echo '<option value="'.$i.'"'.selected($page_values['footer_id'], $i).'>'.$form_item.'</option>';
+            echo '<option value="'.$i.'"'.selected($page_options['footer_id'], $i).'>'.$form_item.'</option>';
         }
         echo '</select><br/><br/>';
 
@@ -96,13 +103,13 @@ if (!function_exists('jma_ghb_header_input_box')) {
                 _e('Add page by page content to display over the featured image (or slider)', 'jma_ghb_textdomain');
                 echo '</label><br/><br/> ';
 
-                $content = !isset($page_values['widget_area'])? '': $page_values['widget_area'];
+                $content = !isset($page_options['widget_area'])? '': $page_options['widget_area'];
                 wp_editor(htmlspecialchars_decode($content), '_jma_ghb_widget_area', array(
                     "media_buttons" => true
             ));*/
 
         $x = ob_get_contents();
-        $x = apply_filters('jma_ghb_current_page_options', $x, $page_values);
+        $x = apply_filters('jma_ghb_current_page_options', $x, $page_options);
         ob_end_clean();
         echo str_replace("\r\n", '', $x);
     }
@@ -154,7 +161,9 @@ if (!function_exists('jma_ghb_save_header_postdata')) {
         $values = $_POST;
         //$values['widget_area'] = $_POST[ '_jma_ghb_widget_area'];
         foreach ($values as $i => $value) {
-            $clean_data[$i] = wp_kses_post($value);
+            if (is_string($value)) {
+                $clean_data[$i] = wp_kses_post($value);
+            }
         }
 
         // Update the meta field in the database.

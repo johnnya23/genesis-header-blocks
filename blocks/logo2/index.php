@@ -35,26 +35,6 @@ function organic_profile_block()
         true // Load script in footer.
     );
 
-    // Styles.
-    wp_register_style(
-        'organic-profile-block-editor-style', // Handle.
-        plugins_url('editor.css', __FILE__), // Block editor CSS.
-        array( 'wp-edit-blocks' ), // Dependency to include the CSS after it.
-        filemtime(plugin_dir_path(__FILE__) . 'editor.css')
-    );
-    wp_register_style(
-        'organic-profile-block-frontend-style', // Handle.
-        plugins_url('style.css', __FILE__), // Block editor CSS.
-        array(), // Dependency to include the CSS after it.
-        filemtime(plugin_dir_path(__FILE__) . 'style.css')
-    );
-    wp_enqueue_style(
-        'organic-profile-block-fontawesome', // Handle.
-        plugins_url('font-awesome.css', __FILE__), // Font Awesome for social media icons.
-        array(),
-        '4.7.0'
-    );
-
     // Here we actually register the block with WP, again using our namespacing.
     // We also specify the editor script to be used in the Gutenberg interface.
     register_block_type(
@@ -103,40 +83,50 @@ function JMA_GHB_logo_callback($input)
 {
 
    // Set what goes inside the wrapping tags.
+    global $wp_query;
+    /*echo "<pre>";
+    print_r($wp_query);
+    echo "</pre>";*/
     $inside = $outside_close = $styles = '';
+    $inside = 'Page/Post Title';
     $name = get_bloginfo('name');
     if (isset($input['content_type'])) {
         //handle main content
-        if ($input['content_type'] == 3) {
+        if ($input['content_type'] == 4) {
+            if (is_object($wp_query->queried_object)) {
+                $inside = is_singular()? $wp_query->queried_object->post_title: $wp_query->queried_object->name;
+            }
+        } elseif ($input['content_type'] == 3) {
             $inside = wp_get_attachment_image($input['mediaID'], 'full', false, array('title' => $name, 'alt' => get_bloginfo('description')));
         } elseif ($input['content_type'] == 0) {
             $inside = $input['custom_headline'];
         } else {
             $inside = $name;
         }
+        $inside = '<a href="' . get_bloginfo('url') . '">' . $inside . '</a>';
         //handle the subtitle
         if ($input['content_type'] == 1) {
             $outside_close = get_bloginfo('description');
         } elseif ($input['content_type'] == 0) {
-            $outside_close = $input['custom_sub'];
+            if (isset($input['custom_sub'])) {
+                $outside_close = $input['custom_sub'];
+            }
         }
     }
+    
+    // Determine which wrapping tags to use.
+    $wrap = $input['content_type'] == '3' ? 'div' : 'h1';
+    $wrap_class = $input['content_type'] == '4' ? 'entry-title' : 'jma-logo-wrap';
+    $attr = $input['content_type'] != '4' ? genesis_attr('site-title') : '';
+
     //handle alignment
-    if (isset($input['align'])) {
-        $op = $input['align'] == 'right'?'left': 'right';
-        if ($input['align'] == 'right' || $input['align'] == 'left') {
-            $styles = 'style="float:' . $input['align'] . ';margin-' . $op . ':5px"';
-        } elseif ($input['align'] == 'center') {
-            $styles = 'style="margin: 0 auto"';
-        }
-    }
+    $alignment_suffix = isset($input['align'])? $input['align']: 'left';
+    $wrap_class .= ' jma-logo-' . $alignment_suffix;
+
 
     if ($outside_close) {
         $outside_close = '<div>' . $outside_close . '</div>';
     }
-
-    // Determine which wrapping tags to use.
-    $wrap = $input['content_type'] == '3' ? 'div' : 'h1';
 
     /**
      * Site title wrapping element
@@ -152,7 +142,7 @@ function JMA_GHB_logo_callback($input)
     // Build the title.
     $title = genesis_markup(
        [
-           'open'    => sprintf("<div {$styles} class='jma-logo-wrap'><{$wrap} %s>", genesis_attr('site-title')),
+           'open'    => sprintf("<div {$styles} class='{$wrap_class}'><{$wrap} %s>", $attr),
            'close'   => "</{$wrap}>" . $outside_close . '</div>',
            'content' => $inside,
            'context' => 'site-title',

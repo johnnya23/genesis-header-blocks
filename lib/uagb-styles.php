@@ -170,8 +170,9 @@ function jma_ghb_get_stylesheet($blocks)
     $tab_styling_css = '';
     $mob_styling_css = '';
 
+    //print_r($blocks);
     foreach ($blocks as $i => $block) {
-        if (is_array($block)) {
+        if (is_array($block) && isset($block['blockName'])) {
             if ('' === $block['blockName']) {
                 continue;
             }

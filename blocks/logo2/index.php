@@ -113,19 +113,19 @@ function JMA_GHB_logo_callback($input)
             }
         }
     }
-    
+
     // Determine which wrapping tags to use.
     $wrap = $input['content_type'] == '3' ? 'div' : 'h1';
-    $wrap_class = $input['content_type'] == '4' ? 'entry-title' : 'jma-logo-wrap';
-    $attr = $input['content_type'] != '4' ? genesis_attr('site-title') : '';
 
     //handle alignment
     $alignment_suffix = isset($input['align'])? $input['align']: 'left';
-    $wrap_class .= ' jma-logo-' . $alignment_suffix;
+    $wrap_class = $input['content_type'] == '4' ? 'entry-title' : 'jma-title-wrap jma-ghb-' . $alignment_suffix;
+    $attr = $input['content_type'] != '4' ? genesis_attr('site-title') : '';
+    $wrap_class .= ' jma-title-inner';
 
 
     if ($outside_close) {
-        $outside_close = '<div>' . $outside_close . '</div>';
+        $outside_close = '<div class="sub-title">' . $outside_close . '</div>';
     }
 
     /**

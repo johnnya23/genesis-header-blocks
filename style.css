@@ -1,34 +1,45 @@
 @media(min-width:768px) {
-    .sticky .site-header {
+    .sticky-header .site-header {
         position: sticky;
         top: 0;
     }
 
-    .sticky.admin-bar .site-header {
+    .sticky-header.admin-bar .site-header {
+        position: sticky;
+        top: 32px;
+    }
+
+    .sticky-header .site-header {
+        position: sticky;
+        top: 0;
+    }
+
+    .sticky-header.admin-bar .site-header {
         position: sticky;
         top: 32px;
     }
 }
 
-.sticky .site-inner {
+.sticky-header .site-inner {
     z-index: 30;
 }
 
-.sticky .site-footer {
+.sticky-header .site-footer {
     position: relative;
     z-index: 35;
 }
 
-.sticky .site-container>.nav-primary {
-    opacity: 0;
-    transition: opacity 0.4s;
-    -webkit-transition: opacity 0.4s;
+.sticky-header .site-container>.nav-primary {
+    top: -90px;
+    transition: top 0.4s;
+    -webkit-transition: top 0.4s;
+    z-index: 35;
 }
 
-.sticky .site-container>.nav-primary.push-forward {
-    opacity: 1;
-    transition: opacity 0.4s;
-    -webkit-transition: opacity 0.4s;
+.sticky-header .site-container>.nav-primary.push-forward {
+    top: 0;
+    transition: top 0.4s;
+    -webkit-transition: top 0.4s;
 }
 
 .jma-ghb-featured-wrap {
@@ -62,7 +73,7 @@
     pointer-events: none;
 }
 
-.jma-ghb-featured-wrap .inner-content>* {
+.jma-ghb-featured-wrap .inner-content .position-content>* {
     pointer-events: all;
 }
 
@@ -72,7 +83,7 @@
 
 /* disables height setting on mobile */
 @media(max-width:767px) {
-    .inner-visual>* {
+    .inner-visual, .inner-visual>* {
         height: inherit !important;
     }
 }
@@ -81,29 +92,26 @@
     text-decoration: none;
 }
 
-.jma-logo-wrap {
-    display: inline-block;
+.jma-title-wrap {
+    display: flex;
+    flex-direction: column;
 }
 
-.jma-logo-wrap.jma-logo-right {
-    float: right
+.jma-title-wrap>* {
+    align-self: center;
 }
 
-.jma-logo-wrap.jma-logo-left {
-    float: left
+.jma-title-wrap.jma-ghb-right>* {
+    align-self: : flex-end;
 }
 
-.jma-logo-wrap.jma-logo-center {
-    display: block;
-    width: auto !important;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+.jma-title-wrap.jma-ghb-left>* {
+    align-self: flex-start;
 }
 
 @media(max-width:768px) {
-    .jma-logo-wrap {
-        max-width: 30%;
+    .jma-title-wrap .sub-title {
+        display: none;
     }
 }
 

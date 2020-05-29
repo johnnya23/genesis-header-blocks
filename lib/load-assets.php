@@ -4,7 +4,7 @@ function jma_ghb_enqueue_scripts()
     $plugins_url = plugins_url('/');
     //globalize the main uagb stylesheet (couldn't just enqueue 'uagb-block-css' for some reason )
 
-    wp_enqueue_script('jma_ghb_script_js', JMA_GHB_BASE_URI . 'jma-ghb-script.min.js', array(''));
+    //wp_enqueue_script('jma_ghb_script_js', JMA_GHB_BASE_URI . 'jma-ghb-script.min.js');
     wp_enqueue_style('jma_ghb_uagb-block-css', $plugins_url . 'ultimate-addons-for-gutenberg/dist/blocks.style.css');
     //if the plugin tries to re-enqueue we block
     wp_dequeue_style('uagb-block-css');

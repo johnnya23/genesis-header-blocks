@@ -3,12 +3,14 @@
 function jma_ghb_get_cpt_items($cpt)
 {
     $return = array();
-    $query = new WP_Query(array( 'post_type' => $cpt ));
-    if ($query->have_posts()) {
-        while ($query->have_posts()) {
-            $query->the_post();
-            $return[get_the_id()] = get_the_title();
-        }
+    $args = array(
+        'numberposts' => 100,
+        'post_type'   => $cpt
+    );
+
+    $entries = get_posts($args);
+    foreach ($entries as $entry) {
+        $return[$entry->ID] = $entry->post_title;
     }
     return $return;
 }

@@ -169,24 +169,24 @@ function jma_ghb_get_stylesheet($blocks)
 
     $tab_styling_css = '';
     $mob_styling_css = '';
-
-    //print_r($blocks);
     foreach ($blocks as $i => $block) {
-        if (is_array($block) && isset($block['blockName'])) {
+        if (is_array($block)) {
             if ('' === $block['blockName']) {
                 continue;
             }
-            $css = jma_ghb_get_block_css($block);
+            //$css = jma_ghb_get_block_css($block);
             if ('core/block' === $block['blockName']) {
                 $id = (isset($block['attrs']['ref'])) ? $block['attrs']['ref'] : 0;
 
                 if ($id) {
                     $content = get_post_field('post_content', $id);
 
-                    $reusable_blocks = parse_blocks($content);
-                    $css = jma_ghb_get_stylesheet($reusable_blocks[0]);
+                    $outer_block = parse_blocks($content);
+                    $block = $outer_block[0];
                 }
             }
+
+            $css = jma_ghb_get_block_css($block);
             // Get CSS for the Block.
 
 

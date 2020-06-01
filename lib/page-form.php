@@ -35,7 +35,7 @@ if (!function_exists('jma_ghb_header_input_box')) {
          * Use get_post_meta() to retrieve an existing value
          * from the database and use the value for the form.
          */
-        
+
 
 
         if (get_post_meta($post->ID, '_jma_ghb_header_footer_key', true)) {
@@ -93,15 +93,15 @@ if (!function_exists('jma_ghb_header_input_box')) {
         }
         echo '</select><br/><br/>';
 
-        /*
-                echo '<label for="widget_area">';
-                echo 'Add page by page content to display over the featured image (or slider)';
-                echo '</label><br/><br/> ';
 
-                $content = !isset($page_options['widget_area'])? '': $page_options['widget_area'];
-                wp_editor(htmlspecialchars_decode($content), '_jma_ghb_widget_area', array(
+        echo '<label for="widget_area">';
+        echo 'Add page by page content to display over the featured image (or slider)';
+        echo '</label><br/><br/> ';
+
+        $content = !isset($page_options['widget_area'])? '': $page_options['widget_area'];
+        wp_editor(htmlspecialchars_decode($content), 'widget_area', array(
                     "media_buttons" => true
-            ));*/
+            ));
     }
 }
 /*

@@ -98,6 +98,7 @@ function JMA_GHB_unload_framework()
 {
     if (defined('GENESIS_LOADED_FRAMEWORK')) {
         add_filter('body_class', 'jma_ghb_body_filter');
+        add_filter('jma_ghb_features_image', 'jma_ghb_im_filter', 10, 2);
         remove_action('genesis_after_header', 'genesis_do_subnav');
         remove_action('genesis_after_header', 'genesis_do_nav');
 
@@ -143,4 +144,12 @@ function jma_ghb_body_filter($cl)
         $cl[] = 'sticky';
     }
     return $cl;
+}
+
+function jma_ghb_im_filter($im, $page_options)
+{
+    if (isset($page_options['widget_area']) && $page_options['widget_area']) {
+        $im .= '<div class="header-page-widget-wrap"><div class="header-page-widget">' . $page_options['widget_area'] . '</div></div>';
+    }
+    return $im;
 }

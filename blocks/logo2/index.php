@@ -119,7 +119,8 @@ function JMA_GHB_logo_callback($input)
 
     //handle alignment
     $alignment_suffix = isset($input['align'])? $input['align']: 'left';
-    $wrap_class = $input['content_type'] == '4' ? 'entry-title' : 'jma-title-wrap jma-ghb-' . $alignment_suffix;
+    $wrap_class = 'jma-title-wrap jma-ghb-' . $alignment_suffix;
+    $wrap_class .= $input['content_type'] == '4' ? ' entry-title' : '';
     $attr = $input['content_type'] != '4' ? genesis_attr('site-title') : '';
     $wrap_class .= ' jma-title-inner';
 

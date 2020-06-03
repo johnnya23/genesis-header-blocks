@@ -76,7 +76,7 @@ function JMA_GHB_menu($input)
             add_filter(
                 'JMA_GBS_nav_menu_markup_filter_inner',
                 function ($content) use ($align) {
-                    return str_replace('<div class="outer">', '<div class="jma-positioned jma-' . $align . '">', $content);
+                    return str_replace('<div class="outer">', '<div class="jma-ul-wrap jma-positioned jma-' . $align . '">', $content);
                 }
             );
             genesis_do_nav();

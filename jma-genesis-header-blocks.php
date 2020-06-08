@@ -105,7 +105,8 @@ function JMA_GHB_unload_framework()
         remove_action('genesis_header', 'genesis_do_header');
         add_action('genesis_header', 'JMA_GHB_do_header');
         remove_all_actions('genesis_before_loop', 99);
-
+        
+        remove_action('genesis_footer', 'genesis_do_footer');
         add_action('genesis_footer', 'JMA_GHB_do_footer');
     }
 }

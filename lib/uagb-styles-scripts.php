@@ -270,7 +270,7 @@ function jma_ghb_get_script($blocks)
                 }
             } else {
                 // Get js for the Block.
-                $js_array = jma_ghb_get_block_css_js($reusable_blocks[0]);
+                $js_array = jma_ghb_get_block_css_js($block);
                 $js .= $js_array['js'];
             }
         }

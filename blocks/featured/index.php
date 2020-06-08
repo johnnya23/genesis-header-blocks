@@ -94,15 +94,16 @@ function JMA_GHB_featured_callback($atts, $content)
             //it has calc so we need prefixes
             $pres = array('-webkit-', '-moz-');
             if (isset($atts["display_height_fallback"]) && $atts["display_height_fallback"]) {
-                $height = 'height:' . $atts["display_height_fallback"] . ';';
+                $height = 'height:' . wp_filter_nohtml_kses($atts["display_height_fallback"]) . ';';
             }
+            $display_height = wp_filter_nohtml_kses($atts["display_height"]);
             foreach ($pres as $pre) {
-                $height .= 'height:' . $pre . $atts["display_height"] . ';';
+                $height .= 'height:' . $pre . $display_height . ';';
             }
-            $height .= 'height:' . $atts["display_height"] . ';';
+            $height .= 'height:' . $display_height . ';';
         } else {
             //a simple height
-            $height = "height:{$atts["display_height"]}";
+            $height = "height:{$display_height}";
         }
     }
     $height = apply_filters('jma_ghb_features_image_style', $height);

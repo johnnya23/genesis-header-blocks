@@ -135,7 +135,7 @@ function jma_ghb_body_filter($cl)
 {
     global $post;
 
-    if (get_post_meta($post->ID, '_jma_ghb_header_footer_key', true)) {
+    if (is_object($post) && get_post_meta($post->ID, '_jma_ghb_header_footer_key', true)) {
         $page_options = get_post_meta($post->ID, '_jma_ghb_header_footer_key', true);
     }
 

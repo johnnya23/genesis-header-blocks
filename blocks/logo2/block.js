@@ -27,6 +27,12 @@
             mediaURL: {
                 type: 'string'
             },
+            mediaID2x: {
+                type: 'number'
+            },
+            mediaURL2x: {
+                type: 'string'
+            },
             content_type: {
                 type: 'string'
             },
@@ -45,12 +51,20 @@
                 custom_sub = props.attributes.custom_sub,
                 mediaURL = props.attributes.mediaURL,
                 mediaID = props.attributes.mediaID,
+                mediaURL2x = props.attributes.mediaURL2x,
+                mediaID2x = props.attributes.mediaID2x,
                 ServerSideRender = wp.components.ServerSideRender;
 
             var onSelectImage = function(media) {
                 props.setAttributes({
                     mediaURL: media.url,
                     mediaID: media.id
+                })
+            }
+            var onSelectImage2x = function(media) {
+                props.setAttributes({
+                    mediaURL2x: media.url,
+                    mediaID2x: media.id
                 })
             }
 
@@ -68,6 +82,21 @@
                             },
                             !attributes.mediaID ? __('Upload Image') : el('img', {
                                 src: attributes.mediaURL
+                            })
+                        )
+                    }
+                }),
+                el(MediaUpload, {
+                    onSelect: onSelectImage2x,
+                    type: 'image',
+                    value: attributes.mediaID2x,
+                    render: function(obj) {
+                        return el(components.Button, {
+                                className: attributes.mediaID2x ? 'image-button' : 'button button-large',
+                                onClick: obj.open
+                            },
+                            !attributes.mediaID2x ? __('Upload Image') : el('img', {
+                                src: attributes.mediaURL2x
                             })
                         )
                     }

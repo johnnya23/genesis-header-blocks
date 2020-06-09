@@ -38,7 +38,7 @@
      wp_register_style('jma-ghb-featured-back-style', JMA_GHB_BASE_URI .'style.css');
      wp_register_style(
          'JMA_ghb_superfish_css',
-         plugins_url('/jma-bootstrap-genesis/dist/css/superfish.min.css')
+         plugins_url('/jma-bootstrap-genesis/bootstrap-genesis/dist/css/superfish.min.css')
      );
 
      // Here we actually register the block with WP, again using our namespacing.

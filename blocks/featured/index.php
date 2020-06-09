@@ -90,13 +90,13 @@ function JMA_GHB_featured_callback($atts, $content)
     //construct the height style
 
     if (isset($atts["display_height"]) && $atts["display_height"]) {
+        $display_height = wp_filter_nohtml_kses($atts["display_height"]);
         if ((strpos($atts["display_height"], 'calc') !== false)) {
             //it has calc so we need prefixes
             $pres = array('-webkit-', '-moz-');
             if (isset($atts["display_height_fallback"]) && $atts["display_height_fallback"]) {
                 $height = 'height:' . wp_filter_nohtml_kses($atts["display_height_fallback"]) . ';';
             }
-            $display_height = wp_filter_nohtml_kses($atts["display_height"]);
             foreach ($pres as $pre) {
                 $height .= 'height:' . $pre . $display_height . ';';
             }

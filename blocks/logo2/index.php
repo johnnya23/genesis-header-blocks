@@ -19,7 +19,7 @@ defined('ABSPATH') || exit;
  *
  * @since 1.0.0
  */
-function organic_profile_block()
+function jma_ghb_logo_block()
 {
     if (! function_exists('register_block_type')) {
         // Gutenberg is not active.
@@ -47,6 +47,12 @@ function organic_profile_block()
                 'mediaURL' => array(
                     'type' => 'string',
                 ),
+                'mediaID2x' => array(
+                    'type' => 'integer',
+                ),
+                'mediaURL2x' => array(
+                    'type' => 'string',
+                ),
                 'align' => array(
                     'type' => 'string',
                 ),
@@ -64,10 +70,10 @@ function organic_profile_block()
             'render_callback' => 'JMA_GHB_logo_callback'
         )
     );
-} // End function organic_profile_block().
+} // End function jma_ghb_logo_block().
 
 // Hook: Editor assets.
-add_action('init', 'organic_profile_block');
+add_action('init', 'jma_ghb_logo_block');
 
 /**
 * Echo the site title into the header.
@@ -97,7 +103,10 @@ function JMA_GHB_logo_callback($input)
                 $inside = is_singular()? $wp_query->queried_object->post_title: $wp_query->queried_object->name;
             }
         } elseif ($input['content_type'] == 3) {
-            $inside = wp_get_attachment_image($input['mediaID'], 'full', false, array('title' => $name, 'alt' => get_bloginfo('description')));
+            $hires = isset($input['mediaID2x'])? ' srcset="' . wp_get_attachment_image_url($input['mediaID2x'], 'full') . ' 2x"': '';
+
+            $inside = '<img alt="' . get_bloginfo('description') . '"
+          src="' . wp_get_attachment_image_url($input['mediaID'], 'full') . '"' . $hires . '/>';
         } elseif ($input['content_type'] == 0) {
             $inside = $input['custom_headline'];
         } else {

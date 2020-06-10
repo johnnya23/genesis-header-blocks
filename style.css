@@ -152,9 +152,10 @@
 .inner-visual .header-page-widget-wrap {
     position: absolute;
     display: flex;
-    top: 0;
-    bottom: 0;
-    width: 100%;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    transform: translate(-50%, -50%);
     flex-direction: column;
     justify-content: center;
 }

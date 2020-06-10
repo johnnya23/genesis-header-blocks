@@ -173,7 +173,7 @@ function JMA_GHB_featured_callback($atts, $content)
     $x .= '</div>';
 
     $x .= '<div class="inner-visual" ' . $outerstyle . '>';
-    $x .= $im = apply_filters('jma_ghb_features_image', $im, $page_vals);
+    $x .= apply_filters('jma_ghb_features_image', $im, $page_vals);
     $x .= '</div>';
 
     $x .= '</div>';

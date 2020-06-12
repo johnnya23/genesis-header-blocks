@@ -36,10 +36,8 @@
 
 .jma-ghb-featured-wrap {
     position: relative;
-}
-
-.jma-ghb-featured-wrap .inner-wrap {
-    /*overflow-y: hidden;*/
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .wp-block-jma-ghb-featued-block {
@@ -100,7 +98,7 @@
 
 @media(max-width:767px) {
     .jma-ghb-featured-wrap .inner-content .position-content {
-        height: inherit !important;
+        height: unset !important;
     }
 }
 
@@ -112,7 +110,7 @@
 /* disables height setting on mobile */
 @media(max-width:767px) {
     .inner-visual, .inner-visual>* {
-        height: inherit !important;
+        height: unset !important;
     }
 }
 

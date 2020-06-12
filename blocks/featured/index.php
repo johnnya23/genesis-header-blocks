@@ -82,10 +82,13 @@
 function JMA_GHB_featured_callback($atts, $content)
 {
     global $post;
+    global $content_width;
     ob_start();
-    $featured_wrap_style = $position_content_style = $im = $outerstyle = $height = '';
+    $position_content_style = $im = $outerstyle = $height = '';
 
-    $featured_wrap_style = isset($atts['display_width']) && $atts['display_width']? ' style="width: 100%;max-width:100%"': '';
+    $featured_max = isset($atts['display_width']) && $atts['display_width']? '100%': $content_width;
+
+    $featured_wrap_style = ' style="width: 100%;max-width:' . $featured_max . '"';
 
     //construct the height style
 

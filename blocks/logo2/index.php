@@ -27,7 +27,7 @@ function jma_ghb_logo_block()
     }
 
     // Scripts.
-    wp_enqueue_script(
+    wp_register_script(
         'jma_ghb_menu-block-script', // Handle.
         plugins_url('block.js', __FILE__), // Block.js: We register the block here.
         array( 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-editor' ), // Dependencies, defined above.

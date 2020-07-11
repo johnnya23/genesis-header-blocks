@@ -59,6 +59,9 @@
              ),
              'vertical_alignment' => array(
                  'type' => 'string',
+             ),
+             'yt_id' => array(
+                 'type' => 'string',
              )
      ),
         'editor_style' => 'jma-ghb-featured-style',
@@ -68,6 +71,26 @@
  }
  // Hook: Editor assets.
  add_action('init', 'JMA_GHB_featured');
+
+
+
+ function jma_ghb_enqueue_yt_scripts()
+ {
+     wp_enqueue_script('jmayt_api', 'https://www.youtube.com/iframe_api', array( 'jquery' ));
+     wp_enqueue_script(
+        'jma-ghb-featured-front-script', // Handle.
+        plugins_url('featured.js', __FILE__), // Block.js: We register the block here.
+        array( 'jquery' ), // Dependencies, defined above.
+        filemtime(plugin_dir_path(__FILE__) . 'featured.js')
+    );
+ }
+
+add_action('wp_enqueue_scripts', 'jma_ghb_enqueue_yt_scripts');
+
+function jma_ghb_yt_features_image($x, $page_vals, $atts)
+{
+    return $x . '<div id="video' . $atts['yt_id'] . '"></div>';
+}
 
  /**
  * Echo the site title into the header.
@@ -84,9 +107,9 @@ function JMA_GHB_featured_callback($atts, $content)
     global $post;
     global $content_width;
     ob_start();
-    $position_content_style = $im = $outerstyle = $height = '';
+    $position_content_style = $img_ele = $visual_comps = $height = '';
 
-    $featured_max = isset($atts['display_width']) && $atts['display_width']? '100%': $content_width;
+    $featured_max = isset($atts['display_width']) && $atts['display_width']? '100%': $content_width . 'px';
 
     $featured_wrap_style = ' style="width: 100%;max-width:' . $featured_max . '"';
 
@@ -114,6 +137,7 @@ function JMA_GHB_featured_callback($atts, $content)
 
     $image_style_array = array();
     $content_style_array = array();
+    $visual_comps_array = array('class'=> 'inner-visual');
 
     if (isset($atts['vertical_alignment']) && $atts['vertical_alignment']) {
         $content_style_array['justify-content'] = $atts['vertical_alignment'];
@@ -139,30 +163,36 @@ function JMA_GHB_featured_callback($atts, $content)
     }
     if (isset($atts['mediaID']) && $atts['mediaID']) {
         //get the image
-        if (get_post_mime_type($atts['mediaID']) == 'video/mp4') {
-            $im = '<div class="bg-video">' . do_shortcode('[video preload="auto" autoplay="on" loop="on" src="' . wp_get_attachment_url($atts['mediaID']) . '"]') . '</div>';
-        } else {
-            $im = wp_get_attachment_image($atts['mediaID'], 'full', false, $image_style_array);
-        }
+
+        $img_ele = wp_get_attachment_image($atts['mediaID'], 'full', false, $image_style_array);
     }
 
     if (isset($page_vals['slider_id'])) {
         if ($page_vals['slider_id'] === 'jma_featured') {
             //this gives us the featured image
             if (has_post_thumbnail($post)) {
-                $im = wp_get_attachment_image(get_post_thumbnail_id($post), 'full', false, $image_style_array);
+                $img_ele = wp_get_attachment_image(get_post_thumbnail_id($post), 'full', false, $image_style_array);
             }
         } elseif ($page_vals['slider_id']) {
             //this means another plugin has left a value in the form
             //so this is that access
-            $im = apply_filters('jma_ghb_features_slider', $im, $page_vals);
+            $img_ele = apply_filters('jma_ghb_features_slider', $img_ele, $page_vals);
         }
         //this means zero (default) was set as value so original image remains
     }
 
     //if there is no image, but there is a height, we apply height to the wrapper
+
     if ($height) {
-        $outerstyle = 'style="' . $height . '"';
+        $visual_comps_array['style'] =  $height ;
+    }
+    if (isset($atts['yt_id']) && $atts['yt_id']) {
+        $visual_comps_array['data-yt_id'] = $atts['yt_id'];
+        $visual_comps_array['class'] .= ' jma-yt-video';
+        add_filter('jma_ghb_features_image', 'jma_ghb_yt_features_image', 1, 3);
+    }
+    foreach ($visual_comps_array as $attr => $value) {
+        $visual_comps .= ' ' . $attr . '="' . $value . '"';
     }
     // $featured_wrap_style sets width
     $x = '<div class="jma-ghb-featured-wrap"' . $featured_wrap_style . '>';
@@ -175,8 +205,8 @@ function JMA_GHB_featured_callback($atts, $content)
     $x .= '</div>';
     $x .= '</div>';
 
-    $x .= '<div class="inner-visual" ' . $outerstyle . '>';
-    $x .= apply_filters('jma_ghb_features_image', $im, $page_vals);
+    $x .= '<div' . $visual_comps . '>';
+    $x .= apply_filters('jma_ghb_features_image', $img_ele, $page_vals, $atts);
     $x .= '</div>';
 
     $x .= '</div>';

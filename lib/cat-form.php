@@ -6,8 +6,8 @@ function jma_ghb_category_fields($term)
     // if you have other taxonomy name, replace category with the name of your taxonomy. ex: book_add_form_fields, book_edit_form_fields
     $header_val = get_term_meta($term->term_id, 'header_val', true);
     $footer_val = get_term_meta($term->term_id, 'footer_val', true);
-    $header_array = jma_gbh_get_header_footer('header', false);
-    $footer_array = jma_gbh_get_header_footer('footer', false);
+    $header_array = jma_ghb_header_footer_list('header', false);
+    $footer_array = jma_ghb_header_footer_list('footer', false);
     echo '<tr class="form-field">';
     echo '<th valign="top" scope="row"><label for="term_fields">' . __('Header Display') . '</label></th>';
     echo '<td>';
@@ -41,8 +41,11 @@ function jma_ghb_category_fields($term)
 // Add the fields, using our callback function
 // if you have other taxonomy name, replace category with the name of your taxonomy. ex: book_add_form_fields, book_edit_form_fields
 //add_action('category_add_form_fields', 'jma_ghb_category_fields', 10, 2);
-add_action('category_edit_form_fields', 'jma_ghb_category_fields', 10, 2);
-
+//
+$taxonomies = get_taxonomies();
+foreach ($taxonomies as $taxonomy) {
+    add_action($taxonomy . '_edit_form_fields', 'jma_ghb_category_fields', 10, 2);
+}
 function jma_ghb_save_category_fields($term_id)
 {
     if (!isset($_POST['term_fields'])) {
@@ -56,7 +59,10 @@ function jma_ghb_save_category_fields($term_id)
 
 // Save the fields values, using our callback function
 // if you have other taxonomy name, replace category with the name of your taxonomy. ex: edited_book, create_book
-add_action('edited_category', 'jma_ghb_save_category_fields', 10, 2);
+foreach ($taxonomies as $taxonomy) {
+    add_action('edited_'.$taxonomy, 'jma_ghb_save_category_fields', 10, 2);
+}
+
 //add_action('create_category', 'jma_ghb_save_category_fields', 10, 2);
 
 // $term_id = 4, $key = 'header_val'

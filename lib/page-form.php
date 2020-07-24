@@ -4,7 +4,11 @@
 if (!function_exists('jma_ghb_add_header_input_box')) {
     function jma_ghb_add_header_input_box()
     {
-        $screens = array('post', 'page');
+        $screens = array();
+        $cpts = jma_ghb_get_cpt();
+        foreach ($cpts as $slug => $obj) {
+            $screens[] = $slug;
+        }
         $screens = apply_filters('jma_ghb_input_screens_filter', $screens);
         foreach ($screens as $screen) {
             add_meta_box(
@@ -47,7 +51,7 @@ if (!function_exists('jma_ghb_header_input_box')) {
 
         echo '<p></p>';
 
-        $header_array = jma_gbh_get_header_footer('header', false);
+        $header_array = jma_ghb_header_footer_list('header', false);
         echo '<label for="header_id">';
         echo 'Change which header is displayed on this page';
         echo '</label><br/><br/> ';
@@ -82,7 +86,7 @@ if (!function_exists('jma_ghb_header_input_box')) {
         echo '<option value="1"'.selected($page_options['sticky-header'], 1).'>sticky</option>';
         echo '</select><br/><br/>';
 
-        $footer_array = jma_gbh_get_header_footer('footer', false);
+        $footer_array = jma_ghb_header_footer_list('footer', false);
         echo '<label for="footer_id">';
         echo 'Change which footer is displayed on this page';
         echo '</label><br/><br/> ';

@@ -15,7 +15,7 @@ function jma_ghb_get_cpt_items($cpt)
     return $return;
 }
 
-function jma_gbh_get_header_footer($loc, $add_default = true)
+function jma_ghb_header_footer_list($loc, $add_default = true)
 {
     $return = jma_ghb_get_cpt_items($loc);
     if (!count($return)) {

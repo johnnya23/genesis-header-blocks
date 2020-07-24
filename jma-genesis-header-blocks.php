@@ -53,6 +53,28 @@ if (! isset($content_width)) {
     $content_width = get_theme_mod('jma_gbs_site_width');
 }
 
+function jma_ghb_get_cpt()
+{
+    $custom_post_types = array();
+    $builtins = array(false, true);
+    $output = 'objects'; // names or objects, note names is the default
+    $operator = 'and'; // 'and' or 'or'
+    foreach ($builtins as $builtin) {
+        $args=array(
+                'public'                => true,
+                'exclude_from_search'   => false,
+                '_builtin'              => $builtin
+            );
+        $new = get_post_types($args, $output, $operator);
+        $custom_post_types = array_merge($new, $custom_post_types);
+    }
+    $remove = array( 'header', 'footer', 'attachment');
+    foreach ($remove as $value) {
+        unset($custom_post_types[$value]);
+    }
+    return $custom_post_types;
+}
+
 function JMA_GHB_load_files()
 {
     $folders = array('lib');
@@ -65,31 +87,13 @@ function JMA_GHB_load_files()
 }
 add_action('genesis_setup', 'JMA_GHB_load_files', 16);
 
-
-spl_autoload_register('jma_ghb_autoloader');
-function jma_ghb_autoloader($class_name)
-{
-    if (false !== strpos($class_name, 'JMA_GHB')) {
-        $classes_dir = JMA_GHB_BASE_DIRECTORY. DIRECTORY_SEPARATOR . 'classes';
-        $class_file = $class_name . '.php';
-        require_once $classes_dir . DIRECTORY_SEPARATOR . $class_file;
-    }
-}
-
 function JMA_GHB_after_setup_theme()
 {
-    function theme_name_setup()
-    {
-        //add_theme_support('align-wide');
-    }
     foreach (glob(JMA_GHB_BASE_DIRECTORY . 'blocks/*/index.php') as $file) {
         include $file;
     }
 }
 add_action('after_setup_theme', 'JMA_GHB_after_setup_theme');
-
-$headers = new JMA_GHB_CPT('header');
-$footers = new JMA_GHB_CPT('footer');
 
 function jma_ghb_customizer_control($wp_customize)
 {
@@ -103,6 +107,20 @@ function jma_ghb_customizer_control($wp_customize)
     }
 }
 add_action('customize_register', 'jma_ghb_customizer_control');
+
+
+spl_autoload_register('jma_ghb_autoloader');
+function jma_ghb_autoloader($class_name)
+{
+    if (false !== strpos($class_name, 'JMA_GHB')) {
+        $classes_dir = JMA_GHB_BASE_DIRECTORY. DIRECTORY_SEPARATOR . 'classes';
+        $class_file = $class_name . '.php';
+        require_once $classes_dir . DIRECTORY_SEPARATOR . $class_file;
+    }
+}
+
+$headers = new JMA_GHB_CPT('header');
+$footers = new JMA_GHB_CPT('footer');
 
 
 

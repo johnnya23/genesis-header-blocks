@@ -103,10 +103,10 @@ function JMA_GHB_logo_callback($input)
                 $inside = is_singular()? $wp_query->queried_object->post_title: $wp_query->queried_object->name;
             }
         } elseif ($input['content_type'] == 3) {
-            $hires = isset($input['mediaID2x'])? ' srcset="' . wp_get_attachment_image_url($input['mediaID2x'], 'full') . ' 2x"': '';
+            $hi_res = isset($input['mediaID2x'])? ' srcset="' . wp_get_attachment_image_url($input['mediaID2x'], 'full') . ' 2x"': '';
 
             $inside = '<img alt="' . get_bloginfo('description') . '"
-          src="' . wp_get_attachment_image_url($input['mediaID'], 'full') . '"' . $hires . '/>';
+          src="' . wp_get_attachment_image_url($input['mediaID'], 'full') . '"' . $hi_res . '/>';
         } elseif ($input['content_type'] == 0) {
             $inside = $input['custom_headline'];
         } else {

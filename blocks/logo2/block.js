@@ -60,17 +60,31 @@
                     mediaURL: media.url,
                     mediaID: media.id
                 })
-            }
+            };
+
+            var onDeSelectImage = function(media) {
+                props.setAttributes({
+                    mediaURL: '',
+                    mediaID: ''
+                });
+            };
             var onSelectImage2x = function(media) {
                 props.setAttributes({
                     mediaURL2x: media.url,
                     mediaID2x: media.id
                 })
             }
+            var onDeSelectImage2x = function(media) {
+                props.setAttributes({
+                    mediaURL2x: '',
+                    mediaID2x: ''
+                })
+            }
 
             var image_el = el('div', {
                     className: attributes.mediaID ? 'organic-profile-image image-active' : 'organic-profile-image image-inactive'
                 },
+                el('p', {}, i18n.__('Normal Image')),
                 el(MediaUpload, {
                     onSelect: onSelectImage,
                     type: 'image',
@@ -80,12 +94,32 @@
                                 className: attributes.mediaID ? 'image-button' : 'button button-large',
                                 onClick: obj.open
                             },
-                            !attributes.mediaID ? __('Upload Image') : el('img', {
+                            !attributes.mediaID ? __('Upload Image Normal') : el('img', {
                                 src: attributes.mediaURL
                             })
                         )
                     }
                 }),
+
+                el(MediaUpload, {
+                    //onSelect: onDeSelectImage,
+                    type: 'image',
+                    render: function(obj) {
+                        return el(components.Button, {
+                            className: 'components-icon-button components-toolbar__control',
+                            onClick: onDeSelectImage
+                        }, el('svg', {
+                                className: 'dashicon dashicons-edit',
+                                width: '20',
+                                height: '20'
+                            },
+                            el('path', {
+                                d: 'M 19.695312 16.097656 L 13.597656 10 L 19.695312 3.902344 C 20.101562 3.492188 20.101562 2.835938 19.695312 2.425781 L 17.574219 0.304688 C 17.164062 -0.101562 16.507812 -0.101562 16.097656 0.304688 L 10 6.402344 L 3.902344 0.304688 C 3.492188 -0.101562 2.835938 -0.101562 2.425781 0.304688 L 0.304688 2.425781 C -0.101562 2.835938 -0.101562 3.492188 0.304688 3.902344 L 6.402344 10 L 0.304688 16.097656 C -0.101562 16.507812 -0.101562 17.164062 0.304688 17.574219 L 2.425781 19.695312 C 2.835938 20.101562 3.492188 20.101562 3.902344 19.695312 L 10 13.597656 L 16.097656 19.695312 C 16.507812 20.101562 17.164062 20.101562 17.574219 19.695312 L 19.695312 17.574219 C 20.101562 17.164062 20.101562 16.507812 19.695312 16.097656 Z M 19.695312 16.097656'
+                            })
+                        ))
+                    }
+                }),
+                el('p', {}, i18n.__('Hi Res Image (2x)')),
                 el(MediaUpload, {
                     onSelect: onSelectImage2x,
                     type: 'image',
@@ -95,10 +129,28 @@
                                 className: attributes.mediaID2x ? 'image-button' : 'button button-large',
                                 onClick: obj.open
                             },
-                            !attributes.mediaID2x ? __('Upload Image') : el('img', {
+                            !attributes.mediaID2x ? __('Upload Image 2x') : el('img', {
                                 src: attributes.mediaURL2x
                             })
                         )
+                    }
+                }),
+                el(MediaUpload, {
+                    //onSelect: onDeSelectImage,
+                    type: 'image',
+                    render: function(obj) {
+                        return el(components.Button, {
+                            className: 'components-icon-button components-toolbar__control',
+                            onClick: onDeSelectImage2x
+                        }, el('svg', {
+                                className: 'dashicon dashicons-edit',
+                                width: '20',
+                                height: '20'
+                            },
+                            el('path', {
+                                d: 'M 19.695312 16.097656 L 13.597656 10 L 19.695312 3.902344 C 20.101562 3.492188 20.101562 2.835938 19.695312 2.425781 L 17.574219 0.304688 C 17.164062 -0.101562 16.507812 -0.101562 16.097656 0.304688 L 10 6.402344 L 3.902344 0.304688 C 3.492188 -0.101562 2.835938 -0.101562 2.425781 0.304688 L 0.304688 2.425781 C -0.101562 2.835938 -0.101562 3.492188 0.304688 3.902344 L 6.402344 10 L 0.304688 16.097656 C -0.101562 16.507812 -0.101562 17.164062 0.304688 17.574219 L 2.425781 19.695312 C 2.835938 20.101562 3.492188 20.101562 3.902344 19.695312 L 10 13.597656 L 16.097656 19.695312 C 16.507812 20.101562 17.164062 20.101562 17.574219 19.695312 L 19.695312 17.574219 C 20.101562 17.164062 20.101562 16.507812 19.695312 16.097656 Z M 19.695312 16.097656'
+                            })
+                        ))
                     }
                 })
             );

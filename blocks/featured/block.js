@@ -31,6 +31,9 @@
             vertical_alignment: {
                 type: 'string'
             },
+            post_id: {
+                type: 'number'
+            },
             yt_id: {
                 type: 'string'
             },
@@ -42,6 +45,7 @@
                 display_height_fallback = props.attributes.display_height_fallback,
                 vertical_alignment = props.attributes.vertical_alignment,
                 yt_id = props.attributes.yt_id,
+                post_id = props.attributes.post_id,
                 mediaURL = props.attributes.mediaURL,
                 mediaID = props.attributes.mediaID,
                 ServerSideRender = wp.components.ServerSideRender;
@@ -60,6 +64,7 @@
             };
 
             return [
+
                 el(BlockControls, {
                     key: 'controls'
                 }),
@@ -177,7 +182,7 @@
 
                     el(TextControl, {
                         label: 'Youtube Video Id(optional)',
-                        help: 'a video to load over the image',
+                        help: 'a video to load under the image',
                         value: yt_id,
                         onChange: function(newValue) {
                             props.setAttributes({

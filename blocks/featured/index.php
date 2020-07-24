@@ -60,6 +60,9 @@
              'vertical_alignment' => array(
                  'type' => 'string',
              ),
+             'post_id' => array(
+                 'type' => 'integer',
+             ),
              'yt_id' => array(
                  'type' => 'string',
              )
@@ -105,6 +108,7 @@ function jma_ghb_yt_features_image($x, $page_vals, $atts)
 function JMA_GHB_featured_callback($atts, $content)
 {
     global $post;
+
     global $content_width;
     ob_start();
     $position_content_style = $img_ele = $visual_comps = $height = '';

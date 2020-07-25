@@ -31,8 +31,8 @@
             vertical_alignment: {
                 type: 'string'
             },
-            post_id: {
-                type: 'number'
+            allow_connection: {
+                type: 'string'
             },
             yt_id: {
                 type: 'string'
@@ -45,7 +45,7 @@
                 display_height_fallback = props.attributes.display_height_fallback,
                 vertical_alignment = props.attributes.vertical_alignment,
                 yt_id = props.attributes.yt_id,
-                post_id = props.attributes.post_id,
+                allow_connection = props.attributes.allow_connection,
                 mediaURL = props.attributes.mediaURL,
                 mediaID = props.attributes.mediaID,
                 ServerSideRender = wp.components.ServerSideRender;
@@ -176,6 +176,27 @@
                         onChange: function(newValue) {
                             props.setAttributes({
                                 vertical_alignment: newValue
+                            });
+                        }
+                    }),
+
+
+                    el(RadioControl, {
+                        label: 'Allow Connection',
+                        help: 'allow image content from the individual post/page to overwrite choices made here',
+                        selected: allow_connection,
+                        options: [{
+                                label: 'Allow',
+                                value: '1'
+                            },
+                            {
+                                label: 'Disallow',
+                                value: '0'
+                            }
+                        ],
+                        onChange: function(newValue) {
+                            props.setAttributes({
+                                allow_connection: newValue
                             });
                         }
                     }),

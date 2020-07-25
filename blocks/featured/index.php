@@ -60,8 +60,8 @@
              'vertical_alignment' => array(
                  'type' => 'string',
              ),
-             'post_id' => array(
-                 'type' => 'integer',
+             'allow_connection' => array(
+                 'type' => 'string',
              ),
              'yt_id' => array(
                  'type' => 'string',
@@ -162,9 +162,18 @@ function JMA_GHB_featured_callback($atts, $content)
     }
 
     $page_vals = array();
-    if (get_post_meta($post->ID, '_jma_ghb_header_footer_key', true)) {
-        $page_vals =  get_post_meta($post->ID, '_jma_ghb_header_footer_key', true);
+    $allow = true;
+
+    if (isset($atts['allow_connection']) && $atts['allow_connection'] == '0') {
+        $allow = false;
     }
+
+    if ($allow) {
+        if (get_post_meta($post->ID, '_jma_ghb_header_footer_key', true)) {
+            $page_vals =  get_post_meta($post->ID, '_jma_ghb_header_footer_key', true);
+        }
+    }
+    
     if (isset($atts['mediaID']) && $atts['mediaID']) {
         //get the image
 

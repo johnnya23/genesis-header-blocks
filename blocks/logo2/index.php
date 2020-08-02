@@ -112,7 +112,9 @@ function JMA_GHB_logo_callback($input)
         } else {
             $inside = $name;
         }
-        $inside = '<a href="' . get_bloginfo('url') . '">' . $inside . '</a>';
+        if ($input['content_type'] != 4) {
+            $inside = '<a href="' . get_bloginfo('url') . '">' . $inside . '</a>';
+        }
         //handle the subtitle
         if ($input['content_type'] == 1) {
             $outside_close = get_bloginfo('description');

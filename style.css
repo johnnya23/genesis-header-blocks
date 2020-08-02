@@ -12,6 +12,14 @@
     }
 }
 
+@media(min-width:767px) and (max-width:782px) {
+    .sticky-header.admin-bar .site-header {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: 46px;
+    }
+}
+
 .sticky-header .site-inner {
     z-index: 30;
 }

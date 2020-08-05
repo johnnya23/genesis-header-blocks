@@ -75,7 +75,6 @@
                 el(InspectorControls, {
                         key: 'inspector'
                     }, // Display the block options in the inspector panel.
-                    // Facebook social media text field option.
                     el(TextControl, {
                         label: __('Site URL'),
                         value: attributes.site_url,
@@ -295,7 +294,8 @@
                                 }
                             )
                         ),
-                        el('div', {
+                        attributes.email && el('div', {
+
                                 className: 'jma-gbh-schema-item jma-gbh-schema-divider'
                             },
                             attributes.email && el('a', {

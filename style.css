@@ -227,15 +227,18 @@
     .site-container .wp-block-jma-ghb-schema-block .jma-gbh-schema-divider {
         line-height: 100%;
     }
+
+    .site-container .wp-block-jma-ghb-schema-block .jma-gbh-schema-divider {
+        border-left: solid 1px;
+    }
+
+    .site-container .wp-block-jma-ghb-schema-block .jma-gbh-schema-divider:first-child {
+        border-width: 0
+    }
 }
 
 .site-container .wp-block-jma-ghb-schema-block .jma-gbh-schema-divider {
     padding: 0 10px;
-    border-left: solid 1px;
-}
-
-.site-container .wp-block-jma-ghb-schema-block .jma-gbh-schema-divider:first-child {
-    border-width: 0
 }
 
 @media(min-width:768px) {

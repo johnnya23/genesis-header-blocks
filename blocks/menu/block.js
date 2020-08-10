@@ -42,7 +42,7 @@
                                 },
                                 {
                                     label: 'Secondary',
-                                    value: 'second'
+                                    value: 'secondary'
                                 }
                             ],
                             onChange: function(newValue) {

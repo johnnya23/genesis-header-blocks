@@ -4,7 +4,7 @@ function jma_ghb_enqueue_scripts()
     $plugins_url = plugins_url('/');
     //globalize the main uagb stylesheet (couldn't just enqueue 'uagb-block-css' for some reason )
 
-    
+
     wp_enqueue_style('jma_ghb_uagb-block-css', $plugins_url . 'ultimate-addons-for-gutenberg/dist/blocks.style.css');
     //if the plugin tries to re-enqueue we block
     wp_dequeue_style('uagb-block-css');
@@ -28,6 +28,9 @@ function jma_ghb_enqueue_scripts()
 
             if (function_exists('has_blocks') && has_blocks($post->post_content)) {
                 $blocks = parse_blocks($post->post_content);
+                /*echo '<pre>yyyy';
+                print_r($blocks);
+                echo '</pre>';*/
 
                 if (is_array($blocks)) {
                     //modified version of the main plugins's UAGB_Helper::get_stylesheet method

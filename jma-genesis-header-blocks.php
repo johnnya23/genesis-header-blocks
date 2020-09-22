@@ -40,10 +40,12 @@ function JMA_GHB_check_for_plugin()
 add_action('admin_init', 'JMA_GHB_check_for_plugin');
 
  /**
-  * Absolute file path to Genesis Bootstrap base directory.
+  * Absolute file path to Genesis Bootstrap base directory.  UAGB_DIR
   */
 define('JMA_GHB_BASE_DIRECTORY', plugin_dir_path(__FILE__));
+define('UAGB_DIR', ABSPATH . 'wp-content/plugins/ultimate-addons-for-gutenberg/');
 
+require JMA_GHB_BASE_DIRECTORY . 'classes/class-uagb-helper.php';
  /**
   * URI to Genesis Bootstrap base directory.
   */
@@ -165,6 +167,28 @@ function JMA_GHB_do_footer()
         echo 'create and set a footer';
     }
 }
+
+function jma_ghb_uagb_post_for_stylesheet($these_posts)
+{
+    $footer_post_id = jma_ghb_get_header_footer('footer');
+    $header_post_id = jma_ghb_get_header_footer('header');
+
+    $ids = array($header_post_id, $footer_post_id);
+
+    foreach ($ids as $id) {
+        //$post is the post object for the header and footer custom posts
+        // that hold the header and footer content.
+        if ($id) {
+            $post = get_post($id);
+            /*echo '<pre>';
+            print_r($these_posts);
+            echo '</pre>';*/
+            $these_posts[] = $post;
+        }
+    }
+    return $these_posts;
+}
+add_filter('jma_ghb_uagb_post_for_stylesheet', 'jma_ghb_uagb_post_for_stylesheet');
 
 function jma_ghb_body_filter($cl)
 {

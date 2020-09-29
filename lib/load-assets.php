@@ -1,4 +1,8 @@
 <?php
+if (! defined('ABSPATH')) {
+    exit; // Exit if accessed directly.
+}
+
 function jma_ghb_enqueue_scripts()
 {
     $plugins_url = plugins_url('/');

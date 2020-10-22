@@ -29,12 +29,12 @@
      }
      // Scripts.
      wp_register_script(
-        'jma-ghb-menu-block-script', // Handle.
+         'jma-ghb-menu-block-script', // Handle.
         plugins_url('block.js', __FILE__), // Block.js: We register the block here.
         array( 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-editor' ), // Dependencies, defined above.
         filemtime(plugin_dir_path(__FILE__) . 'block.js'),
-        true
-    );
+         true
+     );
      wp_register_style('jma-ghb-featured-back-style', JMA_GHB_BASE_URI .'style.css');
      wp_register_style(
          'JMA_ghb_superfish_css',
@@ -68,8 +68,6 @@ function JMA_GHB_menu($input)
 {
     $align = 'left';
     $x = '';
-    /*print_r($input);
-    echo 'qqqqq';*/
     if (isset($input['align'])) {
         $align = $input['align'];
     }
@@ -82,7 +80,7 @@ function JMA_GHB_menu($input)
         );*/
         $x = genesis_get_nav_menu(array(
             'theme_location' => $input['nav_val'],
-            'menu_class' => 'nav sf-menu sf-arrows jma-positioned jma-' . $input['align'] . ' jma-' . $input['nav_val'] . '-menu'));
+            'menu_class' => 'nav sf-menu sf-arrows jma-positioned jma-' . $align . ' jma-' . $input['nav_val'] . '-menu'));
     }
     return $x;
 }

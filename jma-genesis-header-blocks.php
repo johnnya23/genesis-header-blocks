@@ -1,8 +1,8 @@
 <?php
 /**
 *Plugin Name: Genesis Header Blocks
-*Description: allows blocks for header and footer areas of Genesis Theme
-*Version: 1.0
+*Description: allows blocks for header and footer areas of Genesis Theme supports UAGB ver 1.18.0
+*Version: 1.1
 *Author: John Antonacci
 *Author URI: https://cleansupersites.com
 *License: GPL2
@@ -45,7 +45,16 @@ add_action('admin_init', 'JMA_GHB_check_for_plugin');
 define('JMA_GHB_BASE_DIRECTORY', plugin_dir_path(__FILE__));
 define('UAGB_DIR', ABSPATH . 'wp-content/plugins/ultimate-addons-for-gutenberg/');
 
+
 require JMA_GHB_BASE_DIRECTORY . 'classes/class-uagb-helper.php';
+function suppress_uagb_plugin_updates($value)
+{
+    unset($value->response['ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php']);
+    return $value;
+}
+add_filter('site_transient_update_plugins', 'suppress_uagb_plugin_updates');
+
+
  /**
   * URI to Genesis Bootstrap base directory.
   */
@@ -88,6 +97,7 @@ function JMA_GHB_load_files()
     }
 }
 add_action('genesis_setup', 'JMA_GHB_load_files', 16);
+
 
 function JMA_GHB_after_setup_theme()
 {
@@ -180,9 +190,6 @@ function jma_ghb_uagb_post_for_stylesheet($these_posts)
         // that hold the header and footer content.
         if ($id) {
             $post = get_post($id);
-            /*echo '<pre>';
-            print_r($these_posts);
-            echo '</pre>';*/
             $these_posts[] = $post;
         }
     }

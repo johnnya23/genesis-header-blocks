@@ -29,12 +29,12 @@
      }
      // Scripts.
      wp_register_script(
-        'jma-ghb-featured-script', // Handle.
+         'jma-ghb-featured-script', // Handle.
         plugins_url('block.js', __FILE__), // Block.js: We register the block here.
         array( 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-editor' ), // Dependencies, defined above.
         filemtime(plugin_dir_path(__FILE__) . 'block.js'),
-        true
-    );
+         true
+     );
 
 
 
@@ -79,13 +79,12 @@
 
  function jma_ghb_enqueue_yt_scripts()
  {
-     wp_enqueue_script('jmayt_api', 'https://www.youtube.com/iframe_api', array( 'jquery' ));
      wp_enqueue_script(
-        'jma-ghb-featured-front-script', // Handle.
+         'jma-ghb-featured-front-script', // Handle.
         plugins_url('featured.js', __FILE__), // Block.js: We register the block here.
         array( 'jquery' ), // Dependencies, defined above.
         filemtime(plugin_dir_path(__FILE__) . 'featured.js')
-    );
+     );
  }
 
 add_action('wp_enqueue_scripts', 'jma_ghb_enqueue_yt_scripts');
@@ -173,7 +172,7 @@ function JMA_GHB_featured_callback($atts, $content)
             $page_vals =  get_post_meta($post->ID, '_jma_ghb_header_footer_key', true);
         }
     }
-    
+
     if (isset($atts['mediaID']) && $atts['mediaID']) {
         //get the image
 
@@ -201,7 +200,7 @@ function JMA_GHB_featured_callback($atts, $content)
     }
     if (isset($atts['yt_id']) && $atts['yt_id']) {
         $visual_comps_array['data-yt_id'] = $atts['yt_id'];
-        $visual_comps_array['class'] .= ' jma-yt-video';
+        $visual_comps_array['class'] .= ' jma-ghb-yt-video';
         add_filter('jma_ghb_features_image', 'jma_ghb_yt_features_image', 1, 3);
     }
     foreach ($visual_comps_array as $attr => $value) {

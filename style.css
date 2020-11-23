@@ -159,11 +159,11 @@
     position: relative;
 }
 
-.jma-desktop .jma-yt-video>* {
+.jma-desktop .jma-ghb-yt-video>* {
     z-index: 10
 }
 
-.inner-visual>iframe, .jma-desktop .jma-yt-video>img {
+.inner-visual>iframe, .jma-desktop .jma-ghb-yt-video>img {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -172,7 +172,7 @@
     height: 100%;
 }
 
-.jma-desktop .jma-yt-video iframe {
+.jma-desktop .jma-ghb-yt-video iframe {
     z-index: 9;
 }
 

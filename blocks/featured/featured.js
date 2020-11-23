@@ -1,6 +1,14 @@
+if (jQuery('.jma-ghb-yt-video').length) {
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
 function onYouTubeIframeAPIReady() {
     if (jQuery('body').hasClass('jma-desktop') && jQuery(window).width() > jQuery(window).height())
-        jQuery('.jma-yt-video').each(function() {
+        jQuery('.jma-ghb-yt-video').each(function() {
             $this = jQuery(this);
             vid_id = $this.data('yt_id');
             $player = new YT.Player('video' + vid_id, {
@@ -32,7 +40,7 @@ function onYouTubeIframeAPIReady() {
 
 function jmayt_ghb_onPlayerReady(event) {
     $iframe = event.target.f;
-    $jma_yt_video = jQuery($iframe).parents('.jma-yt-video');
+    $jma_yt_video = jQuery($iframe).parents('.jma-ghb-yt-video');
     available_ratio = $jma_yt_video.height() / $jma_yt_video.width();
     if (($jma_yt_video.height() + 120) / $jma_yt_video.width() < 0.5625) {
         //wide hole

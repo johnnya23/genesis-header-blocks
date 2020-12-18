@@ -1,8 +1,8 @@
 <?php
 /**
-*Plugin Name: Genesis Header Blocks
-*Description: allows blocks for header and footer areas of Genesis Theme supports UAGB ver 1.18.0
-*Version: 1.1
+*Plugin Name: JMA Genesis Header Blocks
+*Description: allows blocks for header and footer areas of Genesis Theme supports UAGB ver 1.19.0
+*Version: 1.2
 *Author: John Antonacci
 *Author URI: https://cleansupersites.com
 *License: GPL2
@@ -49,7 +49,9 @@ define('UAGB_DIR', ABSPATH . 'wp-content/plugins/ultimate-addons-for-gutenberg/'
 require JMA_GHB_BASE_DIRECTORY . 'classes/class-uagb-helper.php';
 function suppress_uagb_plugin_updates($value)
 {
-    unset($value->response['ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php']);
+    if (!WP_DEBUG) {
+        unset($value->response['ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php']);
+    }
     return $value;
 }
 add_filter('site_transient_update_plugins', 'suppress_uagb_plugin_updates');
@@ -162,7 +164,14 @@ function JMA_GHB_do_header()
 {
     $header_post_id = jma_ghb_get_header_footer('header');
     if ($header_post_id) {
-        echo apply_filters('the_content', get_the_content(null, false, $header_post_id));
+        global $post;
+        $trans_name = 'jma_ghb_component' . $header_post_id . 'forpost' . $post->ID;
+        $html = get_transient($trans_name);
+        if (false == $html) {
+            $html = apply_filters('the_content', get_the_content(null, false, $header_post_id));
+            set_transient($trans_name, $html);
+        }
+        echo $html;
     } else {
         echo 'create and set a header';
     }
@@ -172,7 +181,15 @@ function JMA_GHB_do_footer()
 {
     $footer_post_id = jma_ghb_get_header_footer('footer');
     if ($footer_post_id) {
-        echo apply_filters('the_content', get_the_content(null, false, $footer_post_id));
+        global $post;
+        $trans_name = 'jma_ghb_component' . $footer_post_id . 'forpost' . $post->ID;
+        $html = get_transient($trans_name);
+        if (false == $html) {
+            //echo 'qqqq'. $trans_name;
+            $html = apply_filters('the_content', get_the_content(null, false, $footer_post_id));
+            set_transient($trans_name, $html);
+        }
+        echo $html;
     } else {
         echo 'create and set a footer';
     }

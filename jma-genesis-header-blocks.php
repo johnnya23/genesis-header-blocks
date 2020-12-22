@@ -135,6 +135,7 @@ function jma_ghb_autoloader($class_name)
 
 $headers = new JMA_GHB_CPT('header');
 $footers = new JMA_GHB_CPT('footer');
+$primary_sidebars = new JMA_GHB_CPT('primary_sidebar');
 
 
 
@@ -167,7 +168,7 @@ function JMA_GHB_do_header()
         global $post;
         $trans_name = 'jma_ghb_component' . $header_post_id . 'forpost' . $post->ID;
         $html = get_transient($trans_name);
-        if (false == $html) {
+        if (false == $html|| is_user_logged_in()) {
             $html = apply_filters('the_content', get_the_content(null, false, $header_post_id));
             set_transient($trans_name, $html);
         }
@@ -184,8 +185,7 @@ function JMA_GHB_do_footer()
         global $post;
         $trans_name = 'jma_ghb_component' . $footer_post_id . 'forpost' . $post->ID;
         $html = get_transient($trans_name);
-        if (false == $html) {
-            //echo 'qqqq'. $trans_name;
+        if (false == $html|| is_user_logged_in()) {
             $html = apply_filters('the_content', get_the_content(null, false, $footer_post_id));
             set_transient($trans_name, $html);
         }

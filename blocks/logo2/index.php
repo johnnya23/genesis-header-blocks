@@ -7,7 +7,7 @@
  * @since   1.0.0
  * @package OPB
  */
-
+ 
 defined('ABSPATH') || exit;
 
 /**
@@ -153,7 +153,7 @@ function JMA_GHB_logo_callback($input)
 
     // Build the title.
     $title = genesis_markup(
-       [
+        [
            'open'    => sprintf("<div {$styles} class='{$wrap_class}'><{$wrap} %s>", $attr),
            'close'   => "</{$wrap}>" . $outside_close . '</div>',
            'content' => $inside,
@@ -163,7 +163,7 @@ function JMA_GHB_logo_callback($input)
                'wrap' => 'h1',
            ],
        ]
-   );
+    );
     ob_start();
     /*foreach ($input as $i => $item) {
         echo $i . '=>' . $item;

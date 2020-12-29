@@ -27,12 +27,12 @@ add_filter('body_class', 'jma_ghb_body_class');
 function JMA_GHB_admin_notice()
 {
     echo '<div class="notice notice-error is-dismissible">
-             <p>The Genesis Header Blocks plugin REQUIRES <a href="https://wordpress.org/plugins/ultimate-addons-for-gutenberg/" target="_blank">Ultimate Addons for Gutenberg</a> plugin AND Bootstrap Genesis Plugin</p>
+             <p>The Genesis Header Blocks plugin REQUIRES Bootstrap Genesis Plugin</p>
          </div>';
 }
 function JMA_GHB_check_for_plugin()
 {
-    if (!is_plugin_active('ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php') || !is_plugin_active('jma-bootstrap-genesis/jma-bootstrap-genesis.php')) {
+    if (!is_plugin_active('jma-bootstrap-genesis/jma-bootstrap-genesis.php')) {
         add_action('admin_notices', 'JMA_GHB_admin_notice');
         return null;
     }
@@ -45,8 +45,6 @@ add_action('admin_init', 'JMA_GHB_check_for_plugin');
 define('JMA_GHB_BASE_DIRECTORY', plugin_dir_path(__FILE__));
 define('UAGB_DIR', ABSPATH . 'wp-content/plugins/ultimate-addons-for-gutenberg/');
 
-
-require JMA_GHB_BASE_DIRECTORY . 'classes/class-uagb-helper.php';
 function suppress_uagb_plugin_updates($value)
 {
     if (!WP_DEBUG) {
@@ -167,7 +165,7 @@ function JMA_GHB_do_header()
     if ($header_post_id) {
         global $post;
         $trans_name = 'jma_ghb_component' . $header_post_id . 'forpost' . $post->ID;
-        $html = get_transient($trans_name);
+        $html =  get_transient($trans_name) ;
         if (false == $html|| is_user_logged_in()) {
             $html = apply_filters('the_content', get_the_content(null, false, $header_post_id));
             set_transient($trans_name, $html);
@@ -194,25 +192,6 @@ function JMA_GHB_do_footer()
         echo 'create and set a footer';
     }
 }
-
-function jma_ghb_uagb_post_for_stylesheet($these_posts)
-{
-    $footer_post_id = jma_ghb_get_header_footer('footer');
-    $header_post_id = jma_ghb_get_header_footer('header');
-
-    $ids = array($header_post_id, $footer_post_id);
-
-    foreach ($ids as $id) {
-        //$post is the post object for the header and footer custom posts
-        // that hold the header and footer content.
-        if ($id) {
-            $post = get_post($id);
-            $these_posts[] = $post;
-        }
-    }
-    return $these_posts;
-}
-add_filter('jma_ghb_uagb_post_for_stylesheet', 'jma_ghb_uagb_post_for_stylesheet');
 
 function jma_ghb_body_filter($cl)
 {

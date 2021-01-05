@@ -1,6 +1,6 @@
 <?php
 
-function jma_ghb_get_header_footer($pos = 'header', $post = 0)
+function jma_ghb_get_component($pos = 'header', $post = 0)
 {
     if (!$post) {
         global $wp_query;
@@ -57,5 +57,5 @@ function jma_ghb_get_header_footer($pos = 'header', $post = 0)
             }
         }
     }
-    return (int) apply_filters('jma_ghb_get_header_footer_filter', $return, $pos, $wp_query) ;
+    return (int) apply_filters('jma_ghb_get_component_filter', $return, $pos, $wp_query) ;
 }

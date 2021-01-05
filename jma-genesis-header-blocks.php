@@ -43,16 +43,6 @@ add_action('admin_init', 'JMA_GHB_check_for_plugin');
   * Absolute file path to Genesis Bootstrap base directory.  UAGB_DIR
   */
 define('JMA_GHB_BASE_DIRECTORY', plugin_dir_path(__FILE__));
-define('UAGB_DIR', ABSPATH . 'wp-content/plugins/ultimate-addons-for-gutenberg/');
-
-function suppress_uagb_plugin_updates($value)
-{
-    if (!WP_DEBUG) {
-        unset($value->response['ultimate-addons-for-gutenberg/ultimate-addons-for-gutenberg.php']);
-    }
-    return $value;
-}
-add_filter('site_transient_update_plugins', 'suppress_uagb_plugin_updates');
 
 
  /**
@@ -130,12 +120,11 @@ function jma_ghb_autoloader($class_name)
         require_once $classes_dir . DIRECTORY_SEPARATOR . $class_file;
     }
 }
-
-$headers = new JMA_GHB_CPT('header');
-$footers = new JMA_GHB_CPT('footer');
-$primary_sidebars = new JMA_GHB_CPT('primary_sidebar');
-
-
+$ghb_components = array('header', 'footer');
+foreach ($ghb_components as $ghb_component) {
+    $$ghb_component = new JMA_GHB_CPT($ghb_component);
+}
+//$primary_sidebars = new JMA_GHB_CPT('primary_sidebar');
 
 /**
  *
@@ -161,7 +150,7 @@ add_action('template_redirect', 'JMA_GHB_unload_framework', 99);
 
 function JMA_GHB_do_header()
 {
-    $header_post_id = jma_ghb_get_header_footer('header');
+    $header_post_id = jma_ghb_get_component('header');
     if ($header_post_id) {
         global $post;
         $trans_name = 'jma_ghb_component' . $header_post_id . 'forpost' . $post->ID;
@@ -178,7 +167,7 @@ function JMA_GHB_do_header()
 
 function JMA_GHB_do_footer()
 {
-    $footer_post_id = jma_ghb_get_header_footer('footer');
+    $footer_post_id = jma_ghb_get_component('footer');
     if ($footer_post_id) {
         global $post;
         $trans_name = 'jma_ghb_component' . $footer_post_id . 'forpost' . $post->ID;

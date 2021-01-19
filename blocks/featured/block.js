@@ -8,6 +8,7 @@
         RadioControl = components.RadioControl;
     blocks.registerBlockType('jma-ghb/featued-block', {
         title: 'Featured Image',
+        icon: 'heart',
         category: 'layout',
         supports: {
             alignWide: true

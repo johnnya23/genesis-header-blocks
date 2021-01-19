@@ -7,6 +7,15 @@
 *Author URI: https://cleansupersites.com
 *License: GPL2
  */
+
+if (! defined('ABSPATH')) {
+    exit;
+} // Exit if accessed directly
+
+if (get_option('template') != 'genesis') {
+    return;
+}
+
 function jma_ghb_is_mobile()
 {
     $useragent=$_SERVER['HTTP_USER_AGENT'];

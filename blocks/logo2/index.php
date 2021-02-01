@@ -7,7 +7,7 @@
  * @since   1.0.0
  * @package OPB
  */
- 
+
 defined('ABSPATH') || exit;
 
 /**
@@ -93,7 +93,7 @@ function JMA_GHB_logo_callback($input)
     /*echo "<pre>";
     print_r($wp_query);
     echo "</pre>";*/
-    $inside = $outside_close = $styles = '';
+    $hi_res = $inside = $outside_close = $styles = '';
     $inside = 'Page/Post Title';
     $name = get_bloginfo('name');
     if (isset($input['content_type'])) {
@@ -104,9 +104,10 @@ function JMA_GHB_logo_callback($input)
             }
         } elseif ($input['content_type'] == 3) {
             $hi_res = isset($input['mediaID2x'])? ' srcset="' . wp_get_attachment_image_url($input['mediaID2x'], 'full') . ' 2x"': '';
-
-            $inside = '<img alt="' . get_bloginfo('description') . '"
+            if (isset($input['mediaID'])) {
+                $inside = '<img alt="' . get_bloginfo('description') . '"
           src="' . wp_get_attachment_image_url($input['mediaID'], 'full') . '"' . $hi_res . '/>';
+            }
         } elseif ($input['content_type'] == 0) {
             $inside = $input['custom_headline'];
         } else {

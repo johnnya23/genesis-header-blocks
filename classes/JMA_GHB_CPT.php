@@ -522,6 +522,7 @@ class JMA_GHB_CPT
         // Default options.
         $defaults = array(
             'labels' => $labels,
+            'show_in_rest' => true,
             'hierarchical' => true,
             'rewrite' => array(
                 'slug' => $slug

@@ -114,7 +114,7 @@ function JMA_GHB_featured_callback($atts, $content)
 
     $featured_max = isset($atts['display_width']) && $atts['display_width']? '100%': $content_width . 'px';
 
-    $featured_wrap_style = ' style="width: 100%;max-width:' . $featured_max . '"';
+    $featured_wrap_style = ' style="overflow:hidden;width: 100%;max-width:' . $featured_max . '"';
 
     //construct the height style
 

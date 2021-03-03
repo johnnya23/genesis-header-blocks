@@ -20,7 +20,8 @@ function jma_ghb_get_component($pos = 'header', $post = 0)
     echo '</pre>';*/
     $target_post_for_page = $return = 0;
     //get a
-    if (is_singular()) {
+
+    if (is_singular() || is_home()) {
         if ((null !== get_post_meta($id, '_jma_ghb_header_footer_key', true)) && get_post_meta($id, '_jma_ghb_header_footer_key', true)) {
             $page_options = get_post_meta($id, '_jma_ghb_header_footer_key', true);
             $target_post_for_page = $page_options[$pos . '_id'];

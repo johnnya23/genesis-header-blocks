@@ -32,6 +32,7 @@ add_action('add_meta_boxes', 'jma_ghb_add_header_input_box');
 if (!function_exists('jma_ghb_header_input_box')) {
     function jma_ghb_header_input_box($post)
     {
+
         // Add an nonce field so we can check for it later.
         wp_nonce_field('jma_ghb_header_input_box', 'jma_ghb_header_input_box_nonce');
 
@@ -154,9 +155,11 @@ if (!function_exists('jma_ghb_save_header_postdata')) {
         // Sanitize user input.  htmlspecialchars($_POST['_right_sb_wysiwyg']);
         $values = $_POST;
         //$values['widget_area'] = $_POST[ '_jma_ghb_widget_area'];
-        foreach ($values as $i => $value) {
-            if (is_string($value)) {
-                $clean_data[$i] = wp_kses_post($value);
+        $clean_data = array();
+        $fields = array('sticky-header', 'header_id', 'slider_id', 'footer_id');
+        foreach ($fields as $field) {
+            if (is_string($values[$field])) {
+                $clean_data[$field] = wp_kses_post($values[$field]);
             }
         }
 

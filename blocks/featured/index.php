@@ -168,8 +168,9 @@ function JMA_GHB_featured_callback($atts, $content)
     }
 
     if ($allow) {
-        if (get_post_meta($post->ID, '_jma_ghb_header_footer_key', true)) {
-            $page_vals =  get_post_meta($post->ID, '_jma_ghb_header_footer_key', true);
+        $post_id = is_home()? get_option( 'page_for_posts' ): $post->ID;
+        if (get_post_meta($post_id, '_jma_ghb_header_footer_key', true)) {
+            $page_vals =  get_post_meta($post_id, '_jma_ghb_header_footer_key', true);
         }
     }
 

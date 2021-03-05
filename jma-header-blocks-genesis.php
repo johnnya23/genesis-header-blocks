@@ -167,7 +167,7 @@ function JMA_GHB_do_header()
     $header_post_id = jma_ghb_get_component('header');
     if ($header_post_id) {
         global $post;
-        $post_id = is_home()? get_option( 'page_for_posts' ): $post->ID;
+        $post_id = is_home()? get_option('page_for_posts'): $post->ID;
         $trans_name = 'jma_ghb_component' . $header_post_id . 'forpost' . $post_id;
         $html =  get_transient($trans_name) ;
         if (false == $html|| is_user_logged_in()) {
@@ -185,7 +185,7 @@ function JMA_GHB_do_footer()
     $footer_post_id = jma_ghb_get_component('footer');
     if ($footer_post_id) {
         global $post;
-        $post_id = is_home()? get_option( 'page_for_posts' ): $post->ID;
+        $post_id = is_home()? get_option('page_for_posts'): $post->ID;
         $trans_name = 'jma_ghb_component' . $footer_post_id . 'forpost' . $post_id;
         $html = get_transient($trans_name);
         if (false == $html|| is_user_logged_in()) {
@@ -201,15 +201,26 @@ function JMA_GHB_do_footer()
 function jma_ghb_body_filter($cl)
 {
     global $post;
-    $post_id = is_home()? get_option( 'page_for_posts' ): $post->ID;
+    $post_id = is_home()? get_option('page_for_posts'): $post->ID;
 
     if ((is_object($post) || is_home()) && get_post_meta($post_id, '_jma_ghb_header_footer_key', true)) {
         $page_options = get_post_meta($post_id, '_jma_ghb_header_footer_key', true);
     }
 
-
-    if (isset($page_options['sticky-header']) && $page_options['sticky-header']) {
-        $cl[] = 'sticky-header';
+    if(is_singular() || is_home()){
+        if (isset($page_options['sticky-header']) && $page_options['sticky-header']) {
+            $cl[] = 'sticky-header';
+        }else{
+            $cl[] = 'non-sticky-header';
+        }
+    }elseif (is_archive()) {
+        global $wp_query;
+        $id = $wp_query->queried_object_id;
+        if ((null !== get_term_meta($id, 'sticky-header', true)) && get_term_meta($id, 'sticky-header', true)) {
+            $cl[] = 'sticky-header';
+        }else{
+            $cl[] = 'non-sticky-header';
+        }
     }
     return $cl;
 }

@@ -168,7 +168,7 @@ function JMA_GHB_featured_callback($atts, $content)
     }
 
     if ($allow) {
-        $post_id = is_home()? get_option( 'page_for_posts' ): $post->ID;
+        $post_id = is_home()? get_option('page_for_posts'): $post->ID;
         if (get_post_meta($post_id, '_jma_ghb_header_footer_key', true)) {
             $page_vals =  get_post_meta($post_id, '_jma_ghb_header_footer_key', true);
         }
@@ -180,11 +180,18 @@ function JMA_GHB_featured_callback($atts, $content)
         $img_ele = wp_get_attachment_image($atts['mediaID'], 'full', false, $image_style_array);
     }
 
-    if (isset($page_vals['slider_id'])) {
+
+    if (is_archive()) {
+        global $wp_query;
+        $id = $wp_query->queried_object_id;
+        if ((null !== get_term_meta($id, 'category-image-id', true)) && get_term_meta($id, 'category-image-id', true)) {
+            $img_ele = wp_get_attachment_image(get_term_meta($id, 'category-image-id', true), 'full', false, $image_style_array);
+        }
+    } elseif (isset($page_vals['slider_id'])) {
         if ($page_vals['slider_id'] === 'jma_featured') {
             //this gives us the featured image
             if (has_post_thumbnail($post)) {
-                $img_ele = wp_get_attachment_image(get_post_thumbnail_id($post), 'full', false, $image_style_array);
+                $img_ele = wp_get_attachment_image(get_post_thumbnail_id($post_id), 'full', false, $image_style_array);
             }
         } elseif ($page_vals['slider_id']) {
             //this means another plugin has left a value in the form

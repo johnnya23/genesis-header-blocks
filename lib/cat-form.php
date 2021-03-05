@@ -6,6 +6,9 @@ function jma_ghb_category_fields($term)
     // if you have other taxonomy name, replace category with the name of your taxonomy. ex: book_add_form_fields, book_edit_form_fields
     $header_val = get_term_meta($term->term_id, 'header_val', true);
     $footer_val = get_term_meta($term->term_id, 'footer_val', true);
+    $image_val = get_term_meta($term->term_id, 'category-image-id', true);
+    $sticky = get_term_meta($term->term_id, 'sticky-header', true);
+
     $header_array = jma_ghb_header_footer_list('header', false);
     $footer_array = jma_ghb_header_footer_list('footer', false);
     echo '<tr class="form-field">';
@@ -36,6 +39,39 @@ function jma_ghb_category_fields($term)
     echo '</select><br/><br/>';
     echo '</td>';
     echo '</tr>';
+
+    echo '<th valign="top" scope="row"><label for="term_fields">' . __('Sticky Header') . '</label></th>';
+    echo '<td>';
+    echo '<label for="sticky-header">';
+    echo 'Sticky header stays in same place as main content rolls over it';
+    echo '</label><br/><br/> ';
+    echo '<select name="term_fields[sticky-header]">';
+    echo '<option value="0"'.selected($sticky, 0).'>normal</option>';
+    echo '<option value="1"'.selected($sticky, 1).'>sticky</option>';
+        echo '</select><br/><br/>';
+    echo '</td>';
+    echo '</tr>'; ?>
+  <tr class="form-field term-group-wrap">
+    <th scope="row">
+      <label for="category-image-id"><?php _e('Image', 'hero-theme'); ?></label>
+    </th>
+    <td>
+        <p>this image will replace the feature image in the header if the block allows it.</p>
+      <input type="hidden" id="category-image-id" name="term_fields[category-image-id]" value="<?php echo $image_val; ?>">
+      <div id="category-image-wrapper">
+        <?php if ($image_val) {
+        ?>
+          <?php echo wp_get_attachment_image($image_val, 'thumbnail'); ?>
+        <?php
+    } ?>
+      </div>
+      <p>
+        <input type="button" class="button button-secondary ct_tax_media_button" id="ct_tax_media_button" name="ct_tax_media_button" value="<?php _e('Add Image', 'hero-theme'); ?>" />
+        <input type="button" class="button button-secondary ct_tax_media_remove" id="ct_tax_media_remove" name="ct_tax_media_remove" value="<?php _e('Remove Image', 'hero-theme'); ?>" />
+      </p>
+    </td>
+  </tr>
+<?php
 }
 
 // Add the fields, using our callback function

@@ -147,7 +147,7 @@ if (!function_exists('jma_ghb_save_header_postdata')) {
         } else {
             if (!current_user_can('edit_post', $post_id)) {
                 return $post_id;
-            }
+        }
         }
 
         /* OK, its safe for us to save the data now. */

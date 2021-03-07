@@ -19,7 +19,6 @@ add_action('template_redirect', 'jma_ghb_template_redirect', 15);
 
 /*
  * Add script
- * @since 1.0.0
  */
  function jma_ghb_add_script()
  {

@@ -6,9 +6,10 @@ if (! defined('ABSPATH')) {
 function jma_ghb_enqueue_scripts()
 {
     $plugins_url = plugins_url('/');
-    wp_register_style('jma-ghb-featured-style', JMA_GHB_BASE_URI .'style.css');
-    wp_enqueue_style('jma-ghb-featured-style');
+    wp_register_style('jma-ghb-style', JMA_GHB_BASE_URI .'style.css');
+    wp_enqueue_style('jma-ghb-style');
 }
+add_action('admin_enqueue_scripts', 'jma_ghb_enqueue_scripts', 999);
 
 
 function jma_ghb_template_redirect()

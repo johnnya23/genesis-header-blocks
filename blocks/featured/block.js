@@ -35,9 +35,6 @@
             allow_connection: {
                 type: 'string'
             },
-            yt_id: {
-                type: 'string'
-            },
         },
         edit: function edit(props) {
             var attributes = props.attributes,
@@ -45,7 +42,6 @@
                 display_height = props.attributes.display_height,
                 display_height_fallback = props.attributes.display_height_fallback,
                 vertical_alignment = props.attributes.vertical_alignment,
-                yt_id = props.attributes.yt_id,
                 allow_connection = props.attributes.allow_connection,
                 mediaURL = props.attributes.mediaURL,
                 mediaID = props.attributes.mediaID,
@@ -198,17 +194,6 @@
                         onChange: function(newValue) {
                             props.setAttributes({
                                 allow_connection: newValue
-                            });
-                        }
-                    }),
-
-                    el(TextControl, {
-                        label: 'Youtube Video Id(optional)',
-                        help: 'a video to load under the image',
-                        value: yt_id,
-                        onChange: function(newValue) {
-                            props.setAttributes({
-                                yt_id: newValue
                             });
                         }
                     })

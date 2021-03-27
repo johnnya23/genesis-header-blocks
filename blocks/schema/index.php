@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Plugin Name: Gutenberg Examples Recipe Card
+ * Plugin Name: schema block
  * Plugin URI: https://github.com/WordPress/gutenberg-examples
- * Description: This is a plugin demonstrating how to register new blocks for the Gutenberg editor.
+ * Description: schema wrapped contact info for footer.
  * Version: 1.1.0
- * Author: the Gutenberg Team
+ * Author: john
  *
  * @package gutenberg-examples
  */
@@ -33,6 +33,7 @@ function JMA_GHB_schema_block()
     );
 
     register_block_type('jma-ghb/schema-block', array(
+        'editor_style' => 'jma-ghb-style',
         'editor_script' => 'jma-ghb-schema-block-script'
     ));
 }

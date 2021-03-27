@@ -66,6 +66,7 @@ function jma_ghb_logo_block()
                     'type' => 'string',
                 ),
             ),
+            'editor_style' => 'jma-ghb-style',
             'editor_script' => 'jma_ghb_menu-block-script',
             'render_callback' => 'JMA_GHB_logo_callback'
         )

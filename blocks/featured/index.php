@@ -2,7 +2,7 @@
 /**
  * BLOCK: Profile
  *
- * Gutenberg Custom Youtube List Box
+ * Gutenberg Featured image with custom contents
  *
  * @since   2.0
  * @package JMA
@@ -62,37 +62,15 @@
              ),
              'allow_connection' => array(
                  'type' => 'string',
-             ),
-             'yt_id' => array(
-                 'type' => 'string',
              )
      ),
-        'editor_style' => 'jma-ghb-featured-style',
+        'editor_style' => 'jma-ghb-style',
         'editor_script' => 'jma-ghb-featured-script',
         'render_callback' => 'JMA_GHB_featured_callback',
     ));
  }
  // Hook: Editor assets.
  add_action('init', 'JMA_GHB_featured');
-
-
-
- function jma_ghb_enqueue_yt_scripts()
- {
-     wp_enqueue_script(
-         'jma-ghb-featured-front-script', // Handle.
-        plugins_url('featured.js', __FILE__), // Block.js: We register the block here.
-        array( 'jquery' ), // Dependencies, defined above.
-        filemtime(plugin_dir_path(__FILE__) . 'featured.js')
-     );
- }
-
-add_action('wp_enqueue_scripts', 'jma_ghb_enqueue_yt_scripts');
-
-function jma_ghb_yt_features_image($x, $page_vals, $atts)
-{
-    return $x . '<div id="video' . $atts['yt_id'] . '"></div>';
-}
 
  /**
  * Echo the site title into the header.
@@ -206,11 +184,6 @@ function JMA_GHB_featured_callback($atts, $content)
     if ($height) {
         $visual_comps_array['style'] =  $height ;
     }
-    if (isset($atts['yt_id']) && $atts['yt_id']) {
-        $visual_comps_array['data-yt_id'] = $atts['yt_id'];
-        $visual_comps_array['class'] .= ' jma-ghb-yt-video';
-        add_filter('jma_ghb_features_image', 'jma_ghb_yt_features_image', 1, 3);
-    }
     foreach ($visual_comps_array as $attr => $value) {
         $visual_comps .= ' ' . $attr . '="' . $value . '"';
     }
@@ -218,11 +191,8 @@ function JMA_GHB_featured_callback($atts, $content)
     $x = '<div class="jma-ghb-featured-wrap"' . $featured_wrap_style . '>';
     $x .= '<div class="inner-wrap">';
 
-    $x .= '<div class="inner-content">';
-    // $position_content_style sets spacing for contents and height
-    $x .= '<div class="position-content"' . $position_content_style . '>';
+    $x .= '<div class="inner-content"' . $position_content_style . '>';
     $x .= $content;
-    $x .= '</div>';
     $x .= '</div>';
 
     $x .= '<div' . $visual_comps . '>';

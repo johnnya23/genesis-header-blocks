@@ -34,10 +34,6 @@
         filemtime(plugin_dir_path(__FILE__) . 'block.js'),
          true
      );
-     wp_register_style(
-         'JMA_ghb_superfish_css',
-         plugins_url('/jma-bootstrap-genesis/bootstrap-genesis/dist/css/superfish.min.css')
-     );
 
      // Here we actually register the block with WP, again using our namespacing.
      // We also specify the editor script to be used in the Gutenberg interface.

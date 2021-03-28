@@ -2,7 +2,7 @@
 /**
 *Plugin Name: JMA Genesis Header Blocks
 *Description: allows blocks for header and footer areas of Genesis Theme supports getwid
-*Version: 2.1
+*Version: 2.2
 *Author: John Antonacci
 *Author URI: https://cleansupersites.com
 *License: GPL2
@@ -207,18 +207,18 @@ function jma_ghb_body_filter($cl)
         $page_options = get_post_meta($post_id, '_jma_ghb_header_footer_key', true);
     }
 
-    if(is_singular() || is_home()){
+    if (is_singular() || is_home()) {
         if (isset($page_options['sticky-header']) && $page_options['sticky-header']) {
             $cl[] = 'sticky-header';
-        }else{
+        } else {
             $cl[] = 'non-sticky-header';
         }
-    }elseif (is_archive()) {
+    } elseif (is_archive()) {
         global $wp_query;
         $id = $wp_query->queried_object_id;
         if ((null !== get_term_meta($id, 'sticky-header', true)) && get_term_meta($id, 'sticky-header', true)) {
             $cl[] = 'sticky-header';
-        }else{
+        } else {
             $cl[] = 'non-sticky-header';
         }
     }

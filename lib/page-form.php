@@ -13,7 +13,7 @@ if (!function_exists('jma_ghb_add_header_input_box')) {
         foreach ($screens as $screen) {
             add_meta_box(
                 'jma_ghb_header_input_section',
-                'Current Page Configuration',
+                'Theme Modifications - Current Header Configuration',
                 'jma_ghb_header_input_box',
                 $screen,
                 'side',

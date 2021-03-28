@@ -80,13 +80,13 @@
 
 /************************/
 @media(min-width:768px) {
-    .sticky-header .site-header, .jma-sticky-menu {
+    .sticky-header .site-header {
         position: -webkit-sticky !important;
         position: sticky !important;
         top: 0;
     }
 
-    .sticky-header.admin-bar .site-header, .jma-sticky-menu {
+    .sticky-header.admin-bar .site-header {
         position: -webkit-sticky !important;
         position: sticky !important;
         top: 32px;
@@ -110,14 +110,14 @@
     z-index: 35;
 }
 
-.sticky-header .sticky-menu {
+.sticky-header .jma-sticky-menu {
     top: -90px;
     transition: top 0.4s;
     -webkit-transition: top 0.4s;
     z-index: 35;
 }
 
-.sticky-header .site-container>.nav-primary.push-forward {
+.sticky-header .site-container>.navbar-static-top.push-forward {
     top: 0;
     transition: top 0.4s;
     -webkit-transition: top 0.4s;
@@ -149,6 +149,10 @@
     margin-left: auto;
     margin-right: auto;
     align-items: center;
+}
+
+.wp-block-jma-ghb-featued-block a, div[data-type="jma-ghb/menu-block"] a, div[data-type="jma-ghb/logo-block"] a {
+    pointer-events: none;
 }
 
 @media(max-width:767px) {

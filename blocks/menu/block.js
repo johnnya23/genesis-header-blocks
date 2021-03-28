@@ -1,6 +1,6 @@
 (function(blocks, editor, components, i18n, element) {
     var el = element.createElement,
-        Fragment = element.Fragment,
+        //Fragment = element.Fragment,
         registerBlockType = blocks.registerBlockType,
         InspectorControls = editor.InspectorControls,
         RadioControl = components.RadioControl;
@@ -9,7 +9,6 @@
     registerBlockType('jma-ghb/menu-block', {
         title: 'Menu Block',
         icon: 'menu',
-
         category: 'layout',
         supports: {
             align: true,

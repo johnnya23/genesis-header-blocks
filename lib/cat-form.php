@@ -53,6 +53,7 @@ function jma_ghb_category_fields($term)
     echo '</select><br/><br/>';
     echo '</td>';
     echo '</tr>';
+    
     echo '<tr class="form-field term-group-wrap">';
     echo '<th scope="row">';
     echo '<label for="category-image-id">Image</label>';
@@ -61,8 +62,8 @@ function jma_ghb_category_fields($term)
     echo '<p>this image will replace the feature image in the header if the block allows it.</p>';
     echo '<input type="hidden" id="category-image-id" name="term_fields[category-image-id]" value="' . $image_val . '">';
     echo '<div id="category-image-wrapper">';
-        if ($image_val) {
-           echo wp_get_attachment_image($image_val, 'thumbnail');
+    if ($image_val) {
+        echo wp_get_attachment_image($image_val, 'thumbnail');
     }
     echo '</div>';
     echo '<p>';

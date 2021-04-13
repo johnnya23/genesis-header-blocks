@@ -9,7 +9,11 @@ function jma_ghb_enqueue_scripts()
     wp_register_style('jma-ghb-style', JMA_GHB_BASE_URI .'style.css');
     wp_enqueue_style('jma-ghb-style');
 
-    if (! wp_style_is('kadence-blocks-rowlayout', 'enqueued')
+    if (function_exists('jma_gbs_detect_block') && (
+        jma_gbs_detect_block(
+            array('name' =>  'kadence/rowlayout', 'post' =>  jma_ghb_get_component('header'))
+        ) || jma_gbs_detect_block(array('name' =>  'kadence/rowlayout', 'post' =>  jma_ghb_get_component('footer')))
+    ) && ! wp_style_is('kadence-blocks-rowlayout', 'enqueued')
     ) {
         wp_enqueue_style('kadence-blocks-rowlayout');
     }

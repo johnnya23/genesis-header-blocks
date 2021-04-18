@@ -188,12 +188,16 @@
     text-decoration: none;
 }
 
-.jma-title-wrap {
+.jma-ghb-featured-wrap .jma-title-wrap {
     display: flex;
     flex-direction: column;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
 }
 
 .jma-title-wrap>* {
+    margin-top: 0.5rem;
     align-self: center;
 }
 

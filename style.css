@@ -188,12 +188,22 @@
     text-decoration: none;
 }
 
-.jma-ghb-featured-wrap .jma-title-wrap {
+.jma-title-wrap {
     display: flex;
     flex-direction: column;
     width: 90%;
     max-width: 600px;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.jma-title-wrap.jma-ghb-right {
+    float: right;
+}
+
+.jma-title-wrap.jma-ghb-left {
+    float: left;
 }
 
 .jma-title-wrap>* {
@@ -203,10 +213,12 @@
 
 .jma-title-wrap.jma-ghb-right>* {
     align-self: : flex-end;
+    text-align: right;
 }
 
 .jma-title-wrap.jma-ghb-left>* {
     align-self: flex-start;
+    text-align: left;
 }
 
 @media(max-width:767px) {

@@ -79,48 +79,9 @@
 }
 
 /************************/
-@media(min-width:768px) {
-    .sticky-header .site-header {
-        position: -webkit-sticky !important;
-        position: sticky !important;
-        top: 0;
-    }
+@media(min-width:768px) {}
 
-    .sticky-header.admin-bar .site-header {
-        position: -webkit-sticky !important;
-        position: sticky !important;
-        top: 32px;
-    }
-}
-
-@media(min-width:767px) and (max-width:782px) {
-    .sticky-header.admin-bar .site-header {
-        position: -webkit-sticky !important;
-        position: sticky !important;
-        top: 46px;
-    }
-}
-
-.sticky-header .site-inner {
-    z-index: 30;
-}
-
-.sticky-header .site-footer {
-    position: relative;
-    z-index: 35;
-}
-
-.sticky-header .jma-sticky-menu {
-    top: -90px;
-    transition: top 0.4s;
-    -webkit-transition: top 0.4s;
-    z-index: 35;
-}
-
-.sticky-header .site-container>.navbar-static-top.push-forward {
-    top: 0;
-    transition: top 0.4s;
-    -webkit-transition: top 0.4s;
+@media(min-width:767px) and (max-width:782px) {}
 }
 
 .jma-ghb-featured-wrap {
@@ -140,15 +101,20 @@
 .jma-ghb-featured-wrap .inner-content,
 /*editor*/
 .wp-block-jma-ghb-featued-block .inner-content {
-    width: 100%;
-    top: 0;
-    left: 0;
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
     margin-left: auto;
     margin-right: auto;
     align-items: center;
+    pointer-events: none;
+    z-index: 5
+}
+
+.jma-ghb-featured-wrap .inner-content>*>*,
+/*editor*/
+.wp-block-jma-ghb-featued-block .inner-content>*>* {
+    pointer-events: auto;
 }
 
 .wp-block-jma-ghb-featued-block a, div[data-type="jma-ghb/menu-block"] a, div[data-type="jma-ghb/logo-block"] a {
@@ -156,22 +122,17 @@
 }
 
 @media(max-width:767px) {
-    .jma-ghb-featured-wrap .inner-content {
+    .jma-ghb-featured-wrap .inner-visual {
         position: relative;
     }
 }
 
 .wp-block-jma-ghb-featued-block .inner-content>*, .jma-ghb-featured-wrap .inner-content>* {
     width: 100%;
-    position: relative;
-}
-
-.jma-ghb-featured-wrap .inner-content>* {
-    z-index: 99
 }
 
 .jma-ghb-featured-wrap .inner-content>*:first-child {
-    z-index: 100
+    position: relative;
 }
 
 .jma-ghb-featured-wrap, .jma-ghb-featured-wrap>*, .wp-block-jma-ghb-featued-block>* {
@@ -229,7 +190,9 @@
 
 .inner-visual {
     overflow: hidden;
-    position: relative;
+    top: 0;
+    /*width: 100%;*/
+    position: absolute;
 }
 
 /* disables height setting on mobile */

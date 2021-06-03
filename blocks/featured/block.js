@@ -32,6 +32,9 @@
             vertical_alignment: {
                 type: 'string'
             },
+            scrolling: {
+                type: 'string'
+            },
             allow_connection: {
                 type: 'string'
             },
@@ -42,6 +45,7 @@
                 display_height = props.attributes.display_height,
                 display_height_fallback = props.attributes.display_height_fallback,
                 vertical_alignment = props.attributes.vertical_alignment,
+                scrolling = props.attributes.scrolling,
                 allow_connection = props.attributes.allow_connection,
                 mediaURL = props.attributes.mediaURL,
                 mediaID = props.attributes.mediaID,
@@ -173,6 +177,24 @@
                         onChange: function(newValue) {
                             props.setAttributes({
                                 vertical_alignment: newValue
+                            });
+                        }
+                    }),
+                    el(RadioControl, {
+                        label: 'Fix Image',
+                        selected: scrolling,
+                        options: [{
+                                label: 'Standard',
+                                value: '0'
+                            },
+                            {
+                                label: 'Fixed',
+                                value: '1'
+                            }
+                        ],
+                        onChange: function(newValue) {
+                            props.setAttributes({
+                                scrolling: newValue
                             });
                         }
                     }),

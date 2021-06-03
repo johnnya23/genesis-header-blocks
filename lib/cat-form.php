@@ -8,7 +8,6 @@ function jma_ghb_category_fields($term)
     $header_val = $meta['header_val'][0];
     $footer_val = $meta['footer_val'][0];
     $image_val = $meta['category-image-id'][0];
-    $sticky = $meta['sticky-header'][0];
 
     $header_array = jma_ghb_header_footer_list('header', false);
     $footer_array = jma_ghb_header_footer_list('footer', false);
@@ -42,18 +41,6 @@ function jma_ghb_category_fields($term)
     echo '</td>';
     echo '</tr>';
 
-    echo '<th valign="top" scope="row"><label for="term_fields">Sticky Header</label></th>';
-    echo '<td>';
-    echo '<label for="sticky-header">';
-    echo 'Sticky header stays in same place as main content rolls over it';
-    echo '</label><br/><br/> ';
-    echo '<select name="term_fields[sticky-header]">';
-    echo '<option value="0"'.selected($sticky, 0).'>normal</option>';
-    echo '<option value="1"'.selected($sticky, 1).'>sticky</option>';
-    echo '</select><br/><br/>';
-    echo '</td>';
-    echo '</tr>';
-    
     echo '<tr class="form-field term-group-wrap">';
     echo '<th scope="row">';
     echo '<label for="category-image-id">Image</label>';

@@ -79,25 +79,6 @@ if (!function_exists('jma_ghb_header_input_box')) {
         }
         echo '</select><br/><br/>';
 
-        echo '<label for="sticky-header">';
-        echo 'Sticky header stays in same place as main content rolls over it';
-        echo '</label><br/><br/> ';
-        echo '<select name="sticky-header">';
-        echo '<option value="0"'.selected($page_options['sticky-header'], 0).'>normal</option>';
-        echo '<option value="1"'.selected($page_options['sticky-header'], 1).'>sticky</option>';
-        echo '</select><br/><br/>';
-
-        $footer_array = jma_ghb_header_footer_list('footer', false);
-        echo '<label for="footer_id">';
-        echo 'Change which footer is displayed on this page';
-        echo '</label><br/><br/> ';
-        echo '<select name="footer_id">';
-        echo '<option value="0"'. selected($page_options['footer_id'], '').'>Default</option>';
-        foreach ($footer_array as $i => $form_item) {
-            echo '<option value="'.$i.'"'.selected($page_options['footer_id'], $i).'>'.$form_item.'</option>';
-        }
-        echo '</select><br/><br/>';
-
 
         echo '<label for="widget_area">';
         echo 'Add page by page content to display over the featured image (or slider)';
@@ -156,7 +137,7 @@ if (!function_exists('jma_ghb_save_header_postdata')) {
         $values = $_POST;
         //$values['widget_area'] = $_POST[ '_jma_ghb_widget_area'];
         $clean_data = array();
-        $fields = array('sticky-header', 'header_id', 'slider_id', 'footer_id');
+        $fields = array('header_id', 'slider_id', 'footer_id');
         foreach ($fields as $field) {
             if (is_string($values[$field])) {
                 $clean_data[$field] = wp_kses_post($values[$field]);

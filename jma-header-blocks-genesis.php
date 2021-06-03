@@ -147,7 +147,6 @@ add_filter('body_class', 'jma_ghb_body_class');
 function JMA_GHB_unload_framework()
 {
     if (defined('GENESIS_LOADED_FRAMEWORK')) {
-        add_filter('body_class', 'jma_ghb_body_filter');
         add_filter('jma_ghb_features_image', 'jma_ghb_im_filter', 10, 2);
         remove_action('genesis_after_header', 'genesis_do_subnav');
         remove_action('genesis_after_header', 'genesis_do_nav');
@@ -196,33 +195,6 @@ function JMA_GHB_do_footer()
     } else {
         echo 'create and set a footer';
     }
-}
-
-function jma_ghb_body_filter($cl)
-{
-    global $post;
-    $post_id = is_home()? get_option('page_for_posts'): $post->ID;
-
-    if ((is_object($post) || is_home()) && get_post_meta($post_id, '_jma_ghb_header_footer_key', true)) {
-        $page_options = get_post_meta($post_id, '_jma_ghb_header_footer_key', true);
-    }
-
-    if (is_singular() || is_home()) {
-        if (isset($page_options['sticky-header']) && $page_options['sticky-header']) {
-            $cl[] = 'sticky-header';
-        } else {
-            $cl[] = 'non-sticky-header';
-        }
-    } elseif (is_archive()) {
-        global $wp_query;
-        $id = $wp_query->queried_object_id;
-        if ((null !== get_term_meta($id, 'sticky-header', true)) && get_term_meta($id, 'sticky-header', true)) {
-            $cl[] = 'sticky-header';
-        } else {
-            $cl[] = 'non-sticky-header';
-        }
-    }
-    return $cl;
 }
 
 function jma_ghb_im_filter($im, $page_options)

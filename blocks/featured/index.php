@@ -60,6 +60,9 @@
              'vertical_alignment' => array(
                  'type' => 'string',
              ),
+             'scrolling' => array(
+                 'type' => 'string',
+             ),
              'allow_connection' => array(
                  'type' => 'string',
              )
@@ -92,7 +95,7 @@ function JMA_GHB_featured_callback($atts, $content)
 
     $featured_max = isset($atts['display_width']) && $atts['display_width']? '100%': $content_width . 'px';
 
-    $featured_wrap_style = ' style="overflow:hidden;width: 100%;max-width:' . $featured_max . '"';
+    $featured_wrap_style = ' style="width: 100%;max-width:' . $featured_max . '"';
 
     //construct the height style
 
@@ -118,7 +121,8 @@ function JMA_GHB_featured_callback($atts, $content)
 
     $image_style_array = array();
     $content_style_array = array();
-    $visual_comps_array = array('class'=> 'inner-visual');
+    $vis_comps_class = isset($atts['scrolling']) && $atts['scrolling']? 'inner-visual anchored': 'inner-visual';
+    $visual_comps_array = array('class'=> $vis_comps_class);
 
     if (isset($atts['vertical_alignment']) && $atts['vertical_alignment']) {
         $content_style_array['justify-content'] = $atts['vertical_alignment'];

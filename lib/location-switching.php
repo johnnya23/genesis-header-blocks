@@ -24,7 +24,9 @@ function jma_ghb_get_component($pos = 'header', $post = 0)
     if (is_singular() || is_home()) {
         if ((null !== get_post_meta($id, '_jma_ghb_header_footer_key', true)) && get_post_meta($id, '_jma_ghb_header_footer_key', true)) {
             $page_options = get_post_meta($id, '_jma_ghb_header_footer_key', true);
-            $target_post_for_page = $page_options[$pos . '_id'];
+            if (isset($page_options[$pos . '_id'])) {
+                $target_post_for_page = $page_options[$pos . '_id'];
+            }
         }
     } elseif (is_archive()) {
         if ((null !== get_term_meta($id, $pos . '_val', true)) && get_term_meta($id, $pos . '_val', true)) {

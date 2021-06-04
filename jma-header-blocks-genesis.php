@@ -2,7 +2,7 @@
 /**
 *Plugin Name: JMA Genesis Header Blocks
 *Description: allows blocks for header and footer areas of Genesis Theme supports getwid
-*Version: 2.2
+*Version: 2.3
 *Author: John Antonacci
 *Author URI: https://cleansupersites.com
 *License: GPL2

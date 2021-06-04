@@ -102,15 +102,16 @@ function JMA_GHB_logo_callback($input)
         if ($input['content_type'] == 4) {
             if (is_object($wp_query->queried_object)) {
                 $inside = is_singular()? $wp_query->queried_object->post_title: $wp_query->queried_object->name;
-                if(!$inside && is_home()){//check for posts page
+                if (!$inside && is_home()) {//check for posts page
                     $inside =  get_the_title(get_option('page_for_posts'));
                 }
             }
         } elseif ($input['content_type'] == 3) {
             $hi_res = isset($input['mediaID2x'])? ' srcset="' . wp_get_attachment_image_url($input['mediaID2x'], 'full') . ' 2x"': '';
+            $image_array = wp_get_attachment_image_src($input['mediaID'], 'full');
             if (isset($input['mediaID'])) {
-                $inside = '<img alt="' . get_bloginfo('description') . '"
-          src="' . wp_get_attachment_image_url($input['mediaID'], 'full') . '"' . $hi_res . '/>';
+                $inside = '<img style="height: ' . $image_array[2] . 'px" alt="' . get_bloginfo('description') . '"
+          src="' . $image_array[0] . '"' . $hi_res . '/>';
             }
         } elseif ($input['content_type'] == 0) {
             $inside = $input['custom_headline'];

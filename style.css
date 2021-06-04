@@ -2,7 +2,7 @@
     overflow: hidden
 }
 
-@media(max-width:991px) {
+@media screen and (max-width:991px) {
     .inner-visual>* {
         height: inherit !important
     }
@@ -32,7 +32,7 @@
     text-align: center
 }
 
-@media(max-width:768px) {
+@media screen and (max-width:768px) {
     .jma-logo-wrap {
         max-width: 30%
     }
@@ -58,7 +58,7 @@
     justify-content: flex-end
 }
 
-@media(min-width:767px) {
+@media screen and (min-width:767px) {
     .site-container .wp-block-jma-ghb-schema-block .jma-gbh-schema {
         display: flex;
         flex-wrap: wrap
@@ -79,9 +79,9 @@
 }
 
 /************************/
-@media(min-width:768px) {}
+@media screen and (min-width:768px) {}
 
-@media(min-width:767px) and (max-width:782px) {}
+@media screen and (min-width:767px) and (max-width:782px) {}
 }
 
 .jma-ghb-featured-wrap {
@@ -121,7 +121,7 @@
     pointer-events: none;
 }
 
-@media(max-width:767px) {
+@media screen and (max-width:767px) {
     .jma-ghb-featured-wrap .inner-visual {
         position: relative;
     }
@@ -139,7 +139,7 @@
     width: 100%
 }
 
-@media(max-width:767px) {
+@media screen and (max-width:767px) {
     .jma-ghb-featured-wrap .inner-content {
         height: unset !important;
     }
@@ -168,7 +168,6 @@
 }
 
 .jma-title-wrap>* {
-    margin-top: 0.5rem;
     align-self: center;
 }
 
@@ -182,7 +181,7 @@
     text-align: left;
 }
 
-@media(max-width:767px) {
+@media screen and (max-width:767px) {
     .jma-title-wrap .sub-title {
         display: none;
     }
@@ -191,12 +190,12 @@
 .inner-visual {
     overflow: hidden;
     top: 0;
-    /*width: 100%;*/
+    width: 100%;
     position: absolute;
 }
 
 /* disables height setting on mobile */
-@media(max-width:767px) {
+@media screen and (max-width:767px) {
     .inner-visual, .inner-visual>* {
         height: unset !important;
     }
@@ -219,7 +218,7 @@
     justify-content: center;
 }
 
-@media(min-width:768px) {
+@media screen and (min-width:768px) {
     .inner-visual .header-page-widget-wrap {
         position: absolute;
         top: 50%;
@@ -234,7 +233,7 @@
     align-self: center;
 }
 
-@media(max-width:767px) {
+@media screen and (max-width:767px) {
     .inner-visual .header-page-widget-wrap {
         position: relative;
     }
@@ -255,7 +254,7 @@
     justify-content: flex-end;
 }
 
-@media(min-width:767px) {
+@media screen and (min-width:767px) {
     .site-container .wp-block-jma-ghb-schema-block .jma-gbh-schema {
         display: flex;
         flex-wrap: wrap;
@@ -278,7 +277,7 @@
     padding: 0 10px;
 }
 
-@media(min-width:768px) {
+@media screen and (min-width:768px) {
     .site-container .navbar .jma-positioned.jma-right {
         float: right
     }

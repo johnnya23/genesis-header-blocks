@@ -114,7 +114,7 @@
 }
 
 /* disables height setting on mobile */
-@media screen and (orientation: portrait), (max-width:768px) {
+@media screen and (max-width:768px) {
     .jma-ghb-featured-wrap .inner-content {
         height: unset !important;
         display: block !important;

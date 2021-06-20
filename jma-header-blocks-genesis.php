@@ -165,12 +165,8 @@ function JMA_GHB_do_header()
 {
     $header_post_id = jma_ghb_get_component('header');
     if ($header_post_id) {
-        global $post;
-        $post_id = is_home()? get_option('page_for_posts'): $post->ID;
         $html = apply_filters('the_content', get_the_content(null, false, $header_post_id));
         echo $html;
-    } else {
-        echo 'create and set a header';
     }
 }
 
@@ -178,12 +174,8 @@ function JMA_GHB_do_footer()
 {
     $footer_post_id = jma_ghb_get_component('footer');
     if ($footer_post_id) {
-        global $post;
-        $post_id = is_home()? get_option('page_for_posts'): $post->ID;
         $html = apply_filters('the_content', get_the_content(null, false, $footer_post_id));
         echo $html;
-    } else {
-        echo 'create and set a footer';
     }
 }
 

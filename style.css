@@ -12,32 +12,6 @@
     text-decoration: none
 }
 
-.jma-logo-wrap {
-    display: inline-block
-}
-
-.jma-logo-wrap.jma-logo-right {
-    float: right
-}
-
-.jma-logo-wrap.jma-logo-left {
-    float: left
-}
-
-.jma-logo-wrap.jma-logo-center {
-    display: block;
-    width: auto !important;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center
-}
-
-@media screen and (max-width:768px) {
-    .jma-logo-wrap {
-        max-width: 30%
-    }
-}
-
 .inner-visual>* {
     object-fit: cover;
     object-position: center;
@@ -171,19 +145,15 @@
 .jma-title-wrap {
     display: flex;
     flex-direction: column;
-    width: 90%;
-    max-width: 600px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+    justify-content: center;
 }
 
 .jma-title-wrap.jma-ghb-right {
-    float: right;
+    justify-content: flex-end
 }
 
 .jma-title-wrap.jma-ghb-left {
-    float: left;
+    justify-content: flex-start
 }
 
 .jma-title-wrap>* {
@@ -191,7 +161,7 @@
 }
 
 .jma-title-wrap.jma-ghb-right>* {
-    align-self: : flex-end;
+    align-self: flex-end;
     text-align: right;
 }
 
@@ -285,30 +255,18 @@
     padding: 0 10px;
 }
 
+.navbar-static-top .outer, .navbar-static-top .jma-positioned {
+    display: flex;
+}
+
 @media screen and (min-width:768px) {
     .site-container .navbar .jma-positioned.jma-right {
-        float: right
-    }
-
-    .site-container .navbar .jma-positioned.jma-left {
-        float: left
+        margin-left: auto
     }
 
     .site-container .navbar .jma-positioned.jma-center {
-        text-align: center;
-        float: none;
-        font-size: 0;
-        display: block;
-    }
-
-    .site-container .navbar .jma-positioned.jma-center ul {
-        text-align: left;
-        min-width: 200px
-    }
-
-    .site-container .navbar .jma-positioned.jma-center>li {
-        display: inline-block;
-        float: none
+        margin-left: auto;
+        margin-right: auto
     }
 }
 

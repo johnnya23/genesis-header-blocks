@@ -93,9 +93,7 @@ function JMA_GHB_featured_callback($atts, $content)
     ob_start();
     $position_content_style = $img_ele = $visual_comps = $height = '';
 
-    $featured_max = isset($atts['display_width']) && $atts['display_width']? '100%': $content_width . 'px';
-
-    $featured_wrap_style = ' style="width: 100%;max-width:' . $featured_max . '"';
+    $featured_wrap_class = isset($atts['display_width']) && $atts['display_width']? ' full-width-featured': '';
 
     //construct the height style
 
@@ -191,8 +189,8 @@ function JMA_GHB_featured_callback($atts, $content)
     foreach ($visual_comps_array as $attr => $value) {
         $visual_comps .= ' ' . $attr . '="' . $value . '"';
     }
-    // $featured_wrap_style sets width
-    $x = '<div class="jma-ghb-featured-wrap"' . $featured_wrap_style . '>';
+    // $featured_wrap_class sets width
+    $x = '<div class="jma-ghb-featured-wrap' . $featured_wrap_class . '">';
     $x .= '<div class="inner-wrap">';
 
     $x .= '<div class="inner-content"' . $position_content_style . '>';

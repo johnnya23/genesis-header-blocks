@@ -37,22 +37,25 @@
 
      // Here we actually register the block with WP, again using our namespacing.
      // We also specify the editor script to be used in the Gutenberg interface.
-     register_block_type('jma-ghb/menu-block', array(
-        'attributes'      => array(
-            'nav_val' => array(
-                'type' => 'string',
+     register_block_type(
+         'jma-ghb/menu-block',
+         array(
+            'attributes'      => array(
+                'nav_val' => array(
+                    'type' => 'string',
+                ),
+                'align' => array(
+                    'type' => 'string',
+                ),
+                'className' => array(
+                    'type' => 'string',
+                )
             ),
-            'align' => array(
-                'type' => 'string',
-            ),
-            'className' => array(
-                'type' => 'string',
-            )
-        ),
-        'editor_script' => array('jma-ghb-menu-block-script'),
-        'editor_style' => array( 'jma-ghb-style'),
-        'render_callback' => 'JMA_GHB_menu',
-    ));
+            'editor_script' => array('jma-ghb-menu-block-script'),
+            'editor_style' => array( 'jma-ghb-style'),
+            'render_callback' => 'JMA_GHB_menu',
+        )
+     );
  } // End function JMA_GHB_block().
 
  // Hook: Editor assets.

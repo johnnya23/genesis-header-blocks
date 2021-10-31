@@ -35,6 +35,9 @@
             scrolling: {
                 type: 'string'
             },
+            use_featured: {
+                type: 'string'
+            },
             allow_connection: {
                 type: 'string'
             },
@@ -46,6 +49,7 @@
                 display_height_fallback = props.attributes.display_height_fallback,
                 vertical_alignment = props.attributes.vertical_alignment,
                 scrolling = props.attributes.scrolling,
+                use_featured = props.attributes.use_featured,
                 allow_connection = props.attributes.allow_connection,
                 mediaURL = props.attributes.mediaURL,
                 mediaID = props.attributes.mediaID,
@@ -195,6 +199,25 @@
                         onChange: function(newValue) {
                             props.setAttributes({
                                 scrolling: newValue
+                            });
+                        }
+                    }),
+                    el(RadioControl, {
+                        label: 'Default to Featured',
+                        help: 'use featured image by default ("allow" must be set below)',
+                        selected: use_featured,
+                        options: [{
+                                label: 'from this block',
+                                value: '0'
+                            },
+                            {
+                                label: 'Featured',
+                                value: '1'
+                            }
+                        ],
+                        onChange: function(newValue) {
+                            props.setAttributes({
+                                use_featured: newValue
                             });
                         }
                     }),

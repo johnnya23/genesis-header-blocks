@@ -71,7 +71,8 @@ if (!function_exists('jma_ghb_header_input_box')) {
         echo '</label><br/><br/> ';
         echo '<select name="slider_id">';
         echo '<option value="0"'.selected($page_options['slider_id'], '').'>Default</option>';
-        echo '<option value="jma_featured"'.selected($page_options['slider_id'], 'jma_featured').'>Featured Image</option>';
+        echo '<option value="force_block"'.selected($page_options['slider_id'], 'force_block').'>Force Image from block</option>';
+        echo '<option value="force_featured"'.selected($page_options['slider_id'], 'force_featured').'>Force Featured Image</option>';
         if (count($slider_selections)) {
             foreach ($slider_selections as $i => $form_item) {
                 echo '<option value="'.$i.'"'.selected($page_options['slider_id'], $i).'>'.$form_item.'</option>';

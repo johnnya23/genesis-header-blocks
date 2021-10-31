@@ -63,6 +63,9 @@
              'scrolling' => array(
                  'type' => 'string',
              ),
+             'use_featured' => array(
+                 'type' => 'string',
+             ),
              'allow_connection' => array(
                  'type' => 'string',
              )
@@ -159,7 +162,7 @@ function JMA_GHB_featured_callback($atts, $content)
 
         $img_ele = wp_get_attachment_image($atts['mediaID'], 'full', false, $image_style_array);
     }
-
+    // || !$page_vals['slider_id'] && $atts['use_featured']
 
     if (is_archive()) {
         global $wp_query;
@@ -167,11 +170,20 @@ function JMA_GHB_featured_callback($atts, $content)
         if ((null !== get_term_meta($id, 'category-image-id', true)) && get_term_meta($id, 'category-image-id', true)) {
             $img_ele = wp_get_attachment_image(get_term_meta($id, 'category-image-id', true), 'full', false, $image_style_array);
         }
-    } elseif (isset($page_vals['slider_id'])) {
-        if ($page_vals['slider_id'] === 'jma_featured') {
-            //this gives us the featured image
-            if (has_post_thumbnail($post)) {
-                $img_ele = wp_get_attachment_image(get_post_thumbnail_id($post_id), 'full', false, $image_style_array);
+    } elseif (isset($atts['use_featured'])  || isset($page_vals['slider_id'])) {
+        $forced = substr($page_vals['slider_id'], 0, 5) === "force";
+        if ($forced) {
+            if ($page_vals['slider_id'] == 'force_featured') {
+                if (has_post_thumbnail($post)) {
+                    $img_ele = wp_get_attachment_image(get_post_thumbnail_id($post_id), 'full', false, $image_style_array);
+                }
+            }
+        } elseif (!$page_vals['slider_id']) {
+            if ($atts['use_featured']) {
+                //this gives us the featured image
+                if (has_post_thumbnail($post)) {
+                    $img_ele = wp_get_attachment_image(get_post_thumbnail_id($post_id), 'full', false, $image_style_array);
+                }
             }
         } elseif ($page_vals['slider_id']) {
             //this means another plugin has left a value in the form

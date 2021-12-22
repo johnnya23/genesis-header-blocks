@@ -51,8 +51,8 @@
                     'type' => 'string',
                 )
             ),
-            'editor_script' => array('jma-ghb-menu-block-script'),
-            'editor_style' => array( 'jma-ghb-style'),
+            'editor_script' => 'jma-ghb-menu-block-script',
+            'editor_style' => 'jma-ghb-style',
             'render_callback' => 'JMA_GHB_menu',
         )
      );

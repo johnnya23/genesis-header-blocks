@@ -49,20 +49,13 @@ if (! isset($content_width)) {
 
 function jma_ghb_get_cpt()
 {
-    $custom_post_types = array();
-    $builtins = array(false, true);
     $output = 'objects'; // names or objects, note names is the default
-    $operator = 'and'; // 'and' or 'or'
-    foreach ($builtins as $builtin) {
-        $args=array(
-                'public'                => true,
-                'exclude_from_search'   => false,
-                '_builtin'              => $builtin
-            );
-        $new = get_post_types($args, $output, $operator);
-        $custom_post_types = array_merge($new, $custom_post_types);
-    }
-    $remove = array( 'header', 'footer', 'attachment');
+    $args=array(
+            'public'                => true,
+            'exclude_from_search'   => false
+        );
+    $custom_post_types = get_post_types($args, $output);
+    $remove = array( 'header', 'footer', 'attachment', 'revision');
     foreach ($remove as $value) {
         unset($custom_post_types[$value]);
     }
@@ -136,6 +129,7 @@ function jma_ghb_body_class($cl)
     } else {
         $cl[] = 'jma-desktop';
     }
+    $cl = apply_filters('jma_ghb_body_classes', $cl);
     return $cl;
 }
 add_filter('body_class', 'jma_ghb_body_class');

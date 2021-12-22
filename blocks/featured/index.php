@@ -179,7 +179,7 @@ function JMA_GHB_featured_callback($atts, $content)
                 }
             }
         } elseif (!$page_vals['slider_id']) {
-            if ($atts['use_featured']) {
+            if (isset($atts['use_featured']) && $atts['use_featured']) {
                 //this gives us the featured image
                 if (has_post_thumbnail($post)) {
                     $img_ele = wp_get_attachment_image(get_post_thumbnail_id($post_id), 'full', false, $image_style_array);

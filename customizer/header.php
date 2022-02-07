@@ -6,6 +6,10 @@
 *
 */
 
+if (! defined('ABSPATH')) {
+    exit;
+} // Exit if accessed directly
+
 
 $default_headers = jma_ghb_header_footer_list('header');
 $headers = jma_ghb_header_footer_list('header', false);

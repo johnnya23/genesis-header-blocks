@@ -1,5 +1,9 @@
 <?php
 
+if (! defined('ABSPATH')) {
+    exit;
+} // Exit if accessed directly
+
 function jma_ghb_get_cpt_items($cpt)
 {
     $return = array();

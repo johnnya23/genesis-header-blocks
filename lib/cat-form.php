@@ -1,14 +1,21 @@
 <?php
 
+if (! defined('ABSPATH')) {
+   exit;
+} // Exit if accessed directly
+
 function jma_ghb_category_fields($term)
 {
     // we check the name of the action because we need to have different output
     // if you have other taxonomy name, replace category with the name of your taxonomy. ex: book_add_form_fields, book_edit_form_fields
     $meta = get_term_meta($term->term_id);
-    $header_val = $meta['header_val'][0];
-    $footer_val = $meta['footer_val'][0];
-    $image_val = $meta['category-image-id'][0];
+    $header_val = $footer_val = $image_val = '';
 
+    if (count($meta)) {
+        $header_val = $meta['header_val'][0];
+        $footer_val = $meta['footer_val'][0];
+        $image_val = $meta['category-image-id'][0];
+    }
     $header_array = jma_ghb_header_footer_list('header', false);
     $footer_array = jma_ghb_header_footer_list('footer', false);
 

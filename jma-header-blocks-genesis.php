@@ -146,37 +146,46 @@ function JMA_GHB_unload_framework()
         remove_action('genesis_after_header', 'genesis_do_nav');
 
         remove_action('genesis_header', 'genesis_do_header');
-        add_action('genesis_header', 'JMA_GHB_do_header');
+        $loc = 'header';
+        add_action('genesis_header', function () use ($loc) {
+            JMA_GHB_do_header_footer($loc);
+        });
         remove_all_actions('genesis_before_loop', 99);
 
         remove_action('genesis_footer', 'genesis_do_footer');
-        add_action('genesis_footer', 'JMA_GHB_do_footer');
+        $loc = 'footer';
+        add_action('genesis_footer', function () use ($loc) {
+            JMA_GHB_do_header_footer($loc);
+        });
     }
 }
 add_action('template_redirect', 'JMA_GHB_unload_framework', 99);
 
-function JMA_GHB_do_header()
+function JMA_GHB_do_header_footer($loc)
 {
-    $header_post_id = jma_ghb_get_component('header');
-    if ($header_post_id) {
-        $html = apply_filters('the_content', get_the_content(null, false, $header_post_id));
-        echo $html;
-    }
-}
+    $target = 0;
+    $target_array = jma_ghb_get_component($loc);
+    extract($target_array);
 
-function JMA_GHB_do_footer()
-{
-    $footer_post_id = jma_ghb_get_component('footer');
-    if ($footer_post_id) {
-        $html = apply_filters('the_content', get_the_content(null, false, $footer_post_id));
+    $page_options = count($page_options)?$page_options:false;
+
+    if ($target) {
+        $trans_name = 'jma_ghb_loc_trns' . $loc . $target . 'for' . $this_id;
+        $html = get_transient($trans_name);
+        if (false === $html || !in_array($page_options['slider_id'], array('0', 'force_block', 'force_featured'))) {
+            $html = apply_filters('the_content', get_the_content(null, false, $target));
+            set_transient($trans_name, $html);
+        }
         echo $html;
     }
 }
 
 function jma_ghb_im_filter($im, $page_options)
 {
-    if (isset($page_options['widget_area']) && $page_options['widget_area']) {
+    if (isset($page_options['use_widget']) && $page_options['use_widget'] == 'content' && isset($page_options['widget_area']) && $page_options['widget_area']) {
         $im .= '<div class="header-page-widget-wrap"><div class="header-page-widget">' . $page_options['widget_area'] . '</div></div>';
+    } elseif (isset($page_options['use_widget']) && $page_options['use_widget'] == 'title') {
+        $im .= '<h1 class="header-page-widget-wrap entry-title" itemprop="headline">' . get_the_title() . '</h1>';
     }
     return $im;
 }

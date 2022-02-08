@@ -24,12 +24,12 @@ function JMA_GHB_schema_block()
         // Gutenberg is not active.
         return;
     }
-
+    $min = WP_DEBUG? '': '.min';
     wp_register_script(
         'jma-ghb-schema-block-script',
         plugins_url('block.js', __FILE__),
         array( 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-editor' ),
-        filemtime(plugin_dir_path(__FILE__) . 'block.js')
+        filemtime(plugin_dir_path(__FILE__) . 'block' . $min . '.js')
     );
 
     register_block_type('jma-ghb/schema-block', array(

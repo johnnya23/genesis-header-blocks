@@ -5,7 +5,8 @@ if (! defined('ABSPATH')) {
 
 function jma_ghb_enqueue_scripts()
 {
-    wp_register_style('jma-ghb-style', JMA_GHB_BASE_URI .'style.css');
+    $min = WP_DEBUG? '': '.min';
+    wp_register_style('jma-ghb-style', JMA_GHB_BASE_URI .'style' . $min .'.css');
     wp_enqueue_style('jma-ghb-style');
     if (function_exists('jma_gbs_detect_block')) {
         $header_post_id_array = jma_ghb_get_component('header');

@@ -27,12 +27,13 @@
          // Gutenberg is not active.
          return;
      }
+     $min = WP_DEBUG? '': '.min';
      // Scripts.
      wp_register_script(
          'jma-ghb-featured-script', // Handle.
         plugins_url('block.js', __FILE__), // Block.js: We register the block here.
         array( 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-editor' ), // Dependencies, defined above.
-        filemtime(plugin_dir_path(__FILE__) . 'block.js'),
+        filemtime(plugin_dir_path(__FILE__) . 'block' . $min . '.js'),
          true
      );
 

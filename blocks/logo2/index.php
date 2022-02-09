@@ -109,8 +109,8 @@ function JMA_GHB_logo_callback($input)
             }
         } elseif ($input['content_type'] == 3) {
             $hi_res = isset($input['mediaID2x'])? ' srcset="' . wp_get_attachment_image_url($input['mediaID2x'], 'full') . ' 2x"': '';
-            $image_array = wp_get_attachment_image_src($input['mediaID'], 'full');
             if (isset($input['mediaID'])) {
+            $image_array = wp_get_attachment_image_src($input['mediaID'], 'full');
                 $inside = '<img style="height: ' . $image_array[2] . 'px" alt="' . get_bloginfo('description') . '"
           src="' . $image_array[0] . '"' . $hi_res . '/>';
             }

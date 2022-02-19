@@ -78,7 +78,6 @@
  }
  // Hook: Editor assets.
  add_action('init', 'JMA_GHB_featured');
-
  /**
  * Echo the site title into the header.
  *
@@ -92,7 +91,6 @@
 function JMA_GHB_featured_callback($atts, $content)
 {
     global $post;
-
     global $content_width;
     ob_start();
     $position_content_style = $img_ele = $visual_comps = $height = '';

@@ -172,8 +172,10 @@ function JMA_GHB_do_header_footer($loc)
     if ($target) {
         $trans_name = 'jma_ghb_loc_trns' . $loc . $target . 'for' . $this_id;
         $post = get_post($target);
-        $Kadence = new Kadence_Blocks_Frontend;
-        $Kadence->frontend_build_css($post);
+        if (class_exists('Kadence_Blocks_Frontend', false)) {
+            $kadence_blocks_frontend = new Kadence_Blocks_Frontend;
+            $kadence_blocks_frontend->frontend_build_css($post);
+        }
         $html = get_transient($trans_name);
         $use_trans = apply_filters('jma_ghb_use_trans', !in_array($page_options['slider_id'], array('0', 'force_block', 'force_featured')), $page_options);
         if (false === $html || $use_trans) {

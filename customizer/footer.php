@@ -7,7 +7,7 @@
 */
 
 if (! defined('ABSPATH')) {
-   exit;
+    exit;
 } // Exit if accessed directly
 
 
@@ -46,7 +46,7 @@ $special_choices = array(
         ),
         'archive_footer_post' => array(
             'default' => 0,
-            'label' => __('Default Footer for Archive Pages', 'jma_gbs'),
+            'label' => __('Default Footer for Archive and Search Results Pages', 'jma_gbs'),
             'description' => esc_html__('Footer that will provide content on archive pages (leave as "default" to use same footer as home).'),
             'section' => 'genesis_footer',
             'type' => 'select',

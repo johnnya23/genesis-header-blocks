@@ -64,21 +64,17 @@
 
 function JMA_GHB_menu($input)
 {
-    $align = 'left';
+    $align = 'jma-left';
     $x = '';
     if (isset($input['align'])) {
-        $align = $input['align'];
+        $align = 'jma-' . $input['align'];
     }
     if (isset($input['nav_val'])) {
-        /*add_filter(
-            'JMA_GBS_nav_menu_markup_filter_inner',
-            function ($content) use ($input) {
-                return str_replace('<div class="outer">', '<div class="jma-ul-wrap clearfix jma-positioned jma-' . $input['align'] . ' jma-' . $input['nav_val'] . '-menu">', $content);
-            }
-        );*/
         $x = genesis_get_nav_menu(array(
+            'container' => 'div',
+            'container_class' => 'outer ' . $align,
             'theme_location' => $input['nav_val'],
-            'menu_class' => 'nav sf-menu sf-arrows jma-positioned jma-' . $align . ' jma-' . $input['nav_val'] . '-menu'));
+            'menu_class' => 'nav sf-menu sf-arrows jma-positioned jma-' . $input['nav_val'] . '-menu'));
     }
     return $x;
 }

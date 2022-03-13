@@ -10,6 +10,7 @@ function jma_ghb_kill_all_loc_trns_transients($x = array())
     $wpdb->query("DELETE FROM `$wpdb->options` WHERE `option_name` LIKE ('_transient_jma_ghb_loc_trns%')");
 }
 add_action('customize_save_after', 'jma_ghb_kill_all_loc_trns_transients');
+add_action('wp_update_nav_menu', 'jma_ghb_kill_all_loc_trns_transients');
 
 
 function jma_ghb_save_post_callback($post_id, $tt_id = 0, $tax = '')

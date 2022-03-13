@@ -46,7 +46,7 @@ $special_choices = array(
         ),
         'archive_header_post' => array(
             'default' => 0,
-            'label' => __('Default Header for Archive Pages', 'jma_gbs'),
+            'label' => __('Default Header for Archive and Search Results Pages', 'jma_gbs'),
             'description' => esc_html__('Header that will provide content on archive pages (leave as "default" to use same header as home).'),
             'section' => 'genesis_header',
             'type' => 'select',

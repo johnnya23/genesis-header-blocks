@@ -1,7 +1,7 @@
 /*
 * Prefixed by https://autoprefixer.github.io
-* PostCSS: v7.0.29,
-* Autoprefixer: v9.7.6
+* PostCSS: v8.3.6,
+* Autoprefixer: v10.3.1
 * Browsers: last 4 version
 */
 .inner-visual {
@@ -178,6 +178,11 @@
     justify-content: center;
 }
 
+.jma-fixed .jma-title-wrap {
+    padding-top: 0;
+    padding-bottom: 0
+}
+
 .jma-title-wrap.jma-ghb-right {
     -webkit-box-pack: end;
     -ms-flex-pack: end;
@@ -264,6 +269,7 @@
     display: -ms-flexbox;
     display: flex;
     -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
     align-self: center;
 }
 
@@ -324,14 +330,37 @@
     display: flex;
 }
 
-@media screen and (min-width:768px) {
-    .site-container .navbar .jma-positioned.jma-right {
-        margin-left: auto
+/* adjust padding for stacked logo and menu on mobile */
+@media screen and (max-width:1024px) {
+    .jma-sticky-menu .kt-tab-layout-row ul.nav>li>a {
+        padding-top: 6px;
+        padding-bottom: 6px;
     }
 
-    .site-container .navbar .jma-positioned.jma-center {
-        margin-left: auto;
-        margin-right: auto
+    body .jma-sticky-menu .kt-row-column-wrap.kt-tab-layout-row .wp-block-kadence-column {
+        margin-bottom: 3px;
+    }
+}
+
+@media screen and (min-width:768px) {
+    .site-container .navbar .jma-positioned {
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+    }
+
+    .site-container .navbar .outer.jma-right {
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+    }
+
+    .site-container .navbar .outer.jma-center {
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
     }
 }
 

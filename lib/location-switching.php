@@ -62,7 +62,7 @@ function jma_ghb_get_component($pos = 'header', $post = 0)
             if (isset($mods['jma_ghb_' . $type . '_' . $pos . '_post']) && $mods['jma_ghb_' . $type . '_' . $pos . '_post']) {
                 $return['target'] = $mods['jma_ghb_' . $type . '_' . $pos . '_post'];
             }
-        } elseif (is_archive()) {
+        } elseif (is_archive() || is_search()) {
             //only one theme posibilty Here
             if (isset($mods['jma_ghb_archive_' . $pos . '_post']) && $mods['jma_ghb_archive_' . $pos . '_post']) {
                 $return['target'] = $mods['jma_ghb_archive_' . $pos . '_post'];

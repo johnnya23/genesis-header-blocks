@@ -46,8 +46,16 @@ $special_choices = array(
         ),
         'archive_footer_post' => array(
             'default' => 0,
-            'label' => __('Default Footer for Archive and Search Results Pages', 'jma_gbs'),
-            'description' => esc_html__('Footer that will provide content on archive pages (leave as "default" to use same footer as home).'),
+            'label' => __('Default Footer for Archive Pages', 'jma_gbs'),
+            'description' => esc_html__('Footer that will provide content on archive pages (leave as "default" to use default footer).'),
+            'section' => 'genesis_footer',
+            'type' => 'select',
+            'choices' => $default_footers
+        ),
+        'search_footer_post' => array(
+            'default' => 0,
+            'label' => __('Footer for Search Results Page', 'jma_gbs'),
+            'description' => esc_html__('Footer that will provide content on search results page (leave as "default" to use default footer).'),
             'section' => 'genesis_footer',
             'type' => 'select',
             'choices' => $default_footers

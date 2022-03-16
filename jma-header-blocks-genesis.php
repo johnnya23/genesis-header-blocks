@@ -164,7 +164,7 @@ add_action('template_redirect', 'JMA_GHB_unload_framework', 99);
 function JMA_GHB_do_header_footer($loc)
 {
     $target = 0;
-    $target_array = jma_ghb_get_component($loc);
+    $target_array = jma_ghb_location_switching($loc);
     extract($target_array);
 
     $page_options = count($page_options)?$page_options:false;
@@ -174,7 +174,10 @@ function JMA_GHB_do_header_footer($loc)
         $post = get_post($target);
 
         $html = get_transient($trans_name);
+
+        //we can't use the transients if there is a chance that a slider is being used
         $use_trans = apply_filters('jma_ghb_use_trans', !in_array($page_options['slider_id'], array('0', 'force_block', 'force_featured')), $page_options);
+
         if (false === $html || $use_trans) {
             $html = apply_filters('the_content', get_the_content(null, false, $target));
             set_transient($trans_name, $html);

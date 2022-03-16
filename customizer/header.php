@@ -46,8 +46,16 @@ $special_choices = array(
         ),
         'archive_header_post' => array(
             'default' => 0,
-            'label' => __('Default Header for Archive and Search Results Pages', 'jma_gbs'),
-            'description' => esc_html__('Header that will provide content on archive pages (leave as "default" to use same header as home).'),
+            'label' => __('Default Header for Archive Pages', 'jma_gbs'),
+            'description' => esc_html__('Header that will provide content on archive pages (leave as "default" to use default header).'),
+            'section' => 'genesis_header',
+            'type' => 'select',
+            'choices' => $default_headers
+        ),
+        'search_header_post' => array(
+            'default' => 0,
+            'label' => __('Header for Search Results Page', 'jma_gbs'),
+            'description' => esc_html__('Header that will provide content on search results page (leave as "default" to use default header).'),
             'section' => 'genesis_header',
             'type' => 'select',
             'choices' => $default_headers

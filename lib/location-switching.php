@@ -4,7 +4,7 @@ if (! defined('ABSPATH')) {
     exit;
 } // Exit if accessed directly
 
-function jma_ghb_get_component($pos = 'header', $post = 0)
+function jma_ghb_location_switching($pos = 'header', $post = 0)
 {
     if (!$post) {
         global $wp_query;
@@ -62,12 +62,17 @@ function jma_ghb_get_component($pos = 'header', $post = 0)
             if (isset($mods['jma_ghb_' . $type . '_' . $pos . '_post']) && $mods['jma_ghb_' . $type . '_' . $pos . '_post']) {
                 $return['target'] = $mods['jma_ghb_' . $type . '_' . $pos . '_post'];
             }
-        } elseif (is_archive() || is_search()) {
+        } elseif (is_archive()) {
             //only one theme posibilty Here
             if (isset($mods['jma_ghb_archive_' . $pos . '_post']) && $mods['jma_ghb_archive_' . $pos . '_post']) {
                 $return['target'] = $mods['jma_ghb_archive_' . $pos . '_post'];
             }
+        } elseif (is_search()) {
+            //only one theme posibilty Here
+            if (isset($mods['jma_ghb_search_' . $pos . '_post']) && $mods['jma_ghb_search_' . $pos . '_post']) {
+                $return['target'] = $mods['jma_ghb_search_' . $pos . '_post'];
+            }
         }
     }
-    return apply_filters('jma_ghb_get_component_filter', $return, $wp_query) ;
+    return apply_filters('jma_ghb_location_switching_filter', $return, $wp_query) ;
 }

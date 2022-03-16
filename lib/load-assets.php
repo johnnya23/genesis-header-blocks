@@ -9,10 +9,10 @@ function jma_ghb_enqueue_scripts()
     wp_register_style('jma-ghb-style', JMA_GHB_BASE_URI .'style' . $min .'.css');
     wp_enqueue_style('jma-ghb-style');
     if (function_exists('jma_gbs_detect_block')) {
-        $header_post_id_array = jma_ghb_get_component('header');
+        $header_post_id_array = jma_ghb_location_switching('header');
         $header_post_id = $header_post_id_array['target'];
 
-        $footer_post_id_array = jma_ghb_get_component('footer');
+        $footer_post_id_array = jma_ghb_location_switching('footer');
         $footer_post_id = $footer_post_id_array['target'];
         if ((
             jma_gbs_detect_block(

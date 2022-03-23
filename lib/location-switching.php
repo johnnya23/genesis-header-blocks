@@ -67,7 +67,7 @@ function jma_ghb_location_switching($pos = 'header', $post = 0)
             if (isset($mods['jma_ghb_archive_' . $pos . '_post']) && $mods['jma_ghb_archive_' . $pos . '_post']) {
                 $return['target'] = $mods['jma_ghb_archive_' . $pos . '_post'];
             }
-        } elseif (is_search()) {
+        } elseif (is_search() || is_404()) {
             //only one theme posibilty Here
             if (isset($mods['jma_ghb_search_' . $pos . '_post']) && $mods['jma_ghb_search_' . $pos . '_post']) {
                 $return['target'] = $mods['jma_ghb_search_' . $pos . '_post'];

@@ -54,7 +54,7 @@ $special_choices = array(
         ),
         'search_footer_post' => array(
             'default' => 0,
-            'label' => __('Footer for Search Results Page', 'jma_gbs'),
+            'label' => __('Footer for Search Results and 404 Pages', 'jma_gbs'),
             'description' => esc_html__('Footer that will provide content on search results page (leave as "default" to use default footer).'),
             'section' => 'genesis_footer',
             'type' => 'select',

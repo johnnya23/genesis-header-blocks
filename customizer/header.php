@@ -54,7 +54,7 @@ $special_choices = array(
         ),
         'search_header_post' => array(
             'default' => 0,
-            'label' => __('Header for Search Results Page', 'jma_gbs'),
+            'label' => __('Header for Search Results and 404 Pages', 'jma_gbs'),
             'description' => esc_html__('Header that will provide content on search results page (leave as "default" to use default header).'),
             'section' => 'genesis_header',
             'type' => 'select',

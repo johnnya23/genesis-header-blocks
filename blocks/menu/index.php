@@ -70,9 +70,10 @@ function JMA_GHB_menu($input)
         $align = 'jma-' . $input['align'];
     }
     if (isset($input['nav_val'])) {
+        $className = isset($atts['className']) && $atts['className']? ' ' . $atts['className']: '';
         $x = genesis_get_nav_menu(array(
             'container' => 'div',
-            'container_class' => 'outer ' . $align,
+            'container_class' => 'outer ' . $align . $className,
             'theme_location' => $input['nav_val'],
             'menu_class' => 'nav sf-menu sf-arrows jma-positioned jma-' . $input['nav_val'] . '-menu'));
     }

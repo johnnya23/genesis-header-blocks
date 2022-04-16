@@ -43,6 +43,9 @@
      // We also specify the editor script to be used in the Gutenberg interface.
      register_block_type('jma-ghb/featued-block', array(
          'attributes'      => array(
+             'className' => array(
+                 'type' => 'string',
+             ),
              'mediaID' => array(
                  'type' => 'integer',
              ),
@@ -96,6 +99,7 @@ function JMA_GHB_featured_callback($atts, $content)
     $position_content_style = $img_ele = $visual_comps = $height = '';
 
     $featured_wrap_class = isset($atts['display_width']) && $atts['display_width']? ' full-width-featured': '';
+    $featured_wrap_class .= isset($atts['className']) && $atts['className']? ' ' . $atts['className']: '';
 
     //construct the height style
 

@@ -42,6 +42,9 @@ function jma_ghb_logo_block()
         'jma-ghb/logo-block',
         array(
             'attributes'      => array(
+                'className' => array(
+                    'type' => 'string',
+                ),
                 'mediaID' => array(
                     'type' => 'integer',
                 ),
@@ -110,7 +113,7 @@ function JMA_GHB_logo_callback($input)
         } elseif ($input['content_type'] == 3) {
             $hi_res = isset($input['mediaID2x'])? ' srcset="' . wp_get_attachment_image_url($input['mediaID2x'], 'full') . ' 2x"': '';
             if (isset($input['mediaID'])) {
-            $image_array = wp_get_attachment_image_src($input['mediaID'], 'full');
+                $image_array = wp_get_attachment_image_src($input['mediaID'], 'full');
                 $inside = '<img style="height: ' . $image_array[2] . 'px" alt="' . get_bloginfo('description') . '"
           src="' . $image_array[0] . '"' . $hi_res . '/>';
             }
@@ -137,7 +140,8 @@ function JMA_GHB_logo_callback($input)
 
     //handle alignment
     $alignment_suffix = isset($input['align'])? $input['align']: 'left';
-    $wrap_class = 'jma-title-wrap jma-ghb-' . $alignment_suffix;
+    $className = isset($atts['className']) && $atts['className']? ' ' . $atts['className']: '';
+    $wrap_class = 'jma-title-wrap jma-ghb-' . $alignment_suffix . $className;
     $wrap_class .= $input['content_type'] == '4' ? ' entry-title' : '';
     $wrap_class .= $input['content_type'] == '3' ? ' image-wrap' : ' text-wrap';
     $attr = $input['content_type'] != '4' ? genesis_attr('site-title') : '';

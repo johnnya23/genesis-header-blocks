@@ -1,0 +1,19 @@
+{
+    "name": "acf/acfmenu",
+    "title": "ACF Menu",
+    "description": "A custom ACF Menu block.",
+    "style": [
+        "file:./acfmenu.css"
+    ],
+    "category": "formatting",
+    "icon": "admin-comments",
+    "keywords": [
+        "Menu",
+        "acf"
+    ],
+    "acf": {
+        "mode": "preview",
+        "renderCallback": "JMA_GHB_ACF_menu"
+    },
+    "align": "full"
+}

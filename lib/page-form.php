@@ -1,6 +1,6 @@
 <?php
 
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 } // Exit if accessed directly
 
@@ -59,9 +59,9 @@ if (!function_exists('jma_ghb_header_input_box')) {
         echo 'Change which header is displayed on this page';
         echo '</label><br/><br/> ';
         echo '<select name="header_id">';
-        echo '<option value="0"'. selected($page_options['header_id'], '').'>Default</option>';
+        echo '<option value="0"' . selected($page_options['header_id'], '') . '>Default</option>';
         foreach ($label_array as $i => $form_item) {
-            echo '<option value="'.$i.'"'.selected($page_options['header_id'], $i).'>'.$form_item.'</option>';
+            echo '<option value="' . $i . '"' . selected($page_options['header_id'], $i) . '>' . $form_item . '</option>';
         }
         echo '</select><br/><br/>';
 
@@ -70,9 +70,9 @@ if (!function_exists('jma_ghb_header_input_box')) {
         echo 'Change which footer is displayed on this page';
         echo '</label><br/><br/> ';
         echo '<select name="footer_id">';
-        echo '<option value="0"'. selected($page_options['footer_id'], '').'>Default</option>';
+        echo '<option value="0"' . selected($page_options['footer_id'], '') . '>Default</option>';
         foreach ($label_array as $i => $form_item) {
-            echo '<option value="'.$i.'"'.selected($page_options['footer_id'], $i).'>'.$form_item.'</option>';
+            echo '<option value="' . $i . '"' . selected($page_options['footer_id'], $i) . '>' . $form_item . '</option>';
         }
         echo '</select><br/><br/>';
 
@@ -83,12 +83,12 @@ if (!function_exists('jma_ghb_header_input_box')) {
         echo 'Image Choice -- if a "Featured Image" block was used in the header, you can change its display here';
         echo '</label><br/><br/> ';
         echo '<select name="slider_id">';
-        echo '<option value="0"'.selected($page_options['slider_id'], '').'>Default</option>';
-        echo '<option value="force_block"'.selected($page_options['slider_id'], 'force_block').'>Force Image from block</option>';
-        echo '<option value="force_featured"'.selected($page_options['slider_id'], 'force_featured').'>Force Featured Image</option>';
+        echo '<option value="0"' . selected($page_options['slider_id'], '') . '>Default</option>';
+        echo '<option value="force_block"' . selected($page_options['slider_id'], 'force_block') . '>Force Image from block</option>';
+        echo '<option value="force_featured"' . selected($page_options['slider_id'], 'force_featured') . '>Force Featured Image</option>';
         if (count($slider_selections)) {
             foreach ($slider_selections as $i => $form_item) {
-                echo '<option value="'.$i.'"'.selected($page_options['slider_id'], $i).'>'.$form_item.'</option>';
+                echo '<option value="' . $i . '"' . selected($page_options['slider_id'], $i) . '>' . $form_item . '</option>';
             }
         }
         echo '</select><br/><br/><br/><br/>';
@@ -100,15 +100,15 @@ if (!function_exists('jma_ghb_header_input_box')) {
         });
         function jmavalueChanged()
         {
-            if($("#use_widget").val() == "content")
-                $("#widget_area_wrap").show();
+            if(jQuery("#use_widget").val() == "content")
+                jQuery("#widget_area_wrap").show();
             else
-                $("#widget_area_wrap").hide();
+                jQuery("#widget_area_wrap").hide();
         }
         </script>';
 
 
-        if (! isset($page_options['use_widget'])) {
+        if (!isset($page_options['use_widget'])) {
             $page_options['use_widget'] = 0;
         }
 
@@ -117,9 +117,9 @@ if (!function_exists('jma_ghb_header_input_box')) {
         echo '</label>';
         /*echo '<input type="checkbox" id="use_widget" onchange="jmavalueChanged()" name="use_widget" value="1"' . checked($page_options['use_widget'], 1, false) . '/>';*/
         echo '<select name="use_widget" id="use_widget" onchange="jmavalueChanged()">';
-        echo '<option value="0"'.selected($page_options['use_widget'], '', false).'>None</option>';
-        echo '<option value="title"'.selected($page_options['use_widget'], 'title', false).'>Page Title</option>';
-        echo '<option value="content"'.selected($page_options['use_widget'], 'content', false).'>Custom Content</option>';
+        echo '<option value="0"' . selected($page_options['use_widget'], '', false) . '>None</option>';
+        echo '<option value="title"' . selected($page_options['use_widget'], 'title', false) . '>Page Title</option>';
+        echo '<option value="content"' . selected($page_options['use_widget'], 'content', false) . '>Custom Content</option>';
         echo '</select><br/><br/><br/><br/>';
 
         echo '<br/><br/>';
@@ -129,7 +129,7 @@ if (!function_exists('jma_ghb_header_input_box')) {
         echo 'Add content';
         echo '</label><br/><br/> ';
 
-        $content = !isset($page_options['widget_area'])? '': $page_options['widget_area'];
+        $content = !isset($page_options['widget_area']) ? '' : $page_options['widget_area'];
         wp_editor(htmlspecialchars_decode($content), 'widget_area');
         echo '</div>';
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * BLOCK: Profile
  *
@@ -21,17 +22,17 @@ defined('ABSPATH') || exit;
  */
 function jma_ghb_logo_block()
 {
-    if (! function_exists('register_block_type')) {
+    if (!function_exists('register_block_type')) {
         // Gutenberg is not active.
         return;
     }
-    $min = WP_DEBUG? '': '.min';
+    $min = WP_DEBUG ? '' : '.min';
 
     // Scripts.
     wp_register_script(
         'jma_ghb_menu-block-script', // Handle.
-        plugins_url('block.js', __FILE__), // Block.js: We register the block here.
-        array( 'wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-editor' ), // Dependencies, defined above.
+        plugins_url('block' . $min . '.js', __FILE__), // Block.js: We register the block here.
+        array('wp-blocks', 'wp-components', 'wp-element', 'wp-i18n', 'wp-editor'), // Dependencies, defined above.
         filemtime(plugin_dir_path(__FILE__) . 'block' . $min . '.js'),
         true // Load script in footer.
     );
@@ -81,19 +82,19 @@ function jma_ghb_logo_block()
 add_action('init', 'jma_ghb_logo_block');
 
 /**
-* Echo the site title into the header.
-*
-* Depending on the SEO option set by the user, this will either be wrapped in an `h1` or `p` element.
-* The Site Title will be wrapped in a link to the homepage, if a custom logo is not in use.
-*
-* Applies the `genesis_seo_title` filter before echoing.
-*
-* @since 1.1.0
-*/
+ * Echo the site title into the header.
+ *
+ * Depending on the SEO option set by the user, this will either be wrapped in an `h1` or `p` element.
+ * The Site Title will be wrapped in a link to the homepage, if a custom logo is not in use.
+ *
+ * Applies the `genesis_seo_title` filter before echoing.
+ *
+ * @since 1.1.0
+ */
 function JMA_GHB_logo_callback($input)
 {
 
-   // Set what goes inside the wrapping tags.
+    // Set what goes inside the wrapping tags.
     global $wp_query;
     /*echo "<pre>";
     print_r($wp_query);
@@ -105,13 +106,13 @@ function JMA_GHB_logo_callback($input)
         //handle main content
         if ($input['content_type'] == 4) {
             if (is_object($wp_query->queried_object)) {
-                $inside = is_singular()? $wp_query->queried_object->post_title: $wp_query->queried_object->name;
-                if (!$inside && is_home()) {//check for posts page
+                $inside = is_singular() ? $wp_query->queried_object->post_title : $wp_query->queried_object->name;
+                if (!$inside && is_home()) { //check for posts page
                     $inside =  get_the_title(get_option('page_for_posts'));
                 }
             }
         } elseif ($input['content_type'] == 3) {
-            $hi_res = isset($input['mediaID2x'])? ' srcset="' . wp_get_attachment_image_url($input['mediaID2x'], 'full') . ' 2x"': '';
+            $hi_res = isset($input['mediaID2x']) ? ' srcset="' . wp_get_attachment_image_url($input['mediaID2x'], 'full') . ' 2x"' : '';
             if (isset($input['mediaID'])) {
                 $image_array = wp_get_attachment_image_src($input['mediaID'], 'full');
                 $inside = '<img style="height: ' . $image_array[2] . 'px" alt="' . get_bloginfo('description') . '"
@@ -139,8 +140,8 @@ function JMA_GHB_logo_callback($input)
     $wrap = $input['content_type'] == '3' ? 'div' : 'h1';
 
     //handle alignment
-    $alignment_suffix = isset($input['align'])? $input['align']: 'left';
-    $className = isset($atts['className']) && $atts['className']? ' ' . $atts['className']: '';
+    $alignment_suffix = isset($input['align']) ? $input['align'] : 'left';
+    $className = isset($atts['className']) && $atts['className'] ? ' ' . $atts['className'] : '';
     $wrap_class = 'jma-title-wrap jma-ghb-' . $alignment_suffix . $className;
     $wrap_class .= $input['content_type'] == '4' ? ' entry-title' : '';
     $wrap_class .= $input['content_type'] == '3' ? ' image-wrap' : ' text-wrap';
@@ -166,15 +167,15 @@ function JMA_GHB_logo_callback($input)
     // Build the title.
     $title = genesis_markup(
         [
-           'open'    => sprintf("<div {$styles} class='{$wrap_class}'><{$wrap} %s>", $attr),
-           'close'   => "</{$wrap}>" . $outside_close . '</div>',
-           'content' => $inside,
-           'context' => 'site-title',
-           'echo'    => false,
-           'params'  => [
-               'wrap' => 'h1',
-           ],
-       ]
+            'open'    => sprintf("<div {$styles} class='{$wrap_class}'><{$wrap} %s>", $attr),
+            'close'   => "</{$wrap}>" . $outside_close . '</div>',
+            'content' => $inside,
+            'context' => 'site-title',
+            'echo'    => false,
+            'params'  => [
+                'wrap' => 'h1',
+            ],
+        ]
     );
     ob_start();
     /*foreach ($input as $i => $item) {

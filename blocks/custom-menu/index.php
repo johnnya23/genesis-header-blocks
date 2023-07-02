@@ -4,7 +4,7 @@
  * Block PHP code goes here.
  */
 
-// Register the block
+// Register the blocks
 
 function menu_block_register_block()
 {

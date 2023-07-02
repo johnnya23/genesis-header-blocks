@@ -1,14 +1,15 @@
 <?php
+
 /**
-*Plugin Name: JMA Genesis Header Blocks
-*Description: allows blocks for header and footer areas of Genesis Theme supports getwid
-*Version: 2.4.1
-*Author: John Antonacci
-*Author URI: https://cleansupersites.com
-*License: GPL2
+ *Plugin Name: JMA Genesis Header Blocks
+ *Description: allows blocks for header and footer areas of Genesis Theme supports getwid
+ *Version: 2.5
+ *Author: John Antonacci
+ *Author URI: https://cleansupersites.com
+ *License: GPL2
  */
 
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 } // Exit if accessed directly
 
@@ -32,30 +33,30 @@ function JMA_GHB_check_for_plugin()
 }
 add_action('admin_init', 'JMA_GHB_check_for_plugin');
 
- /**
-  * Absolute file path to Genesis Bootstrap base directory.  UAGB_DIR
-  */
+/**
+ * Absolute file path to Genesis Bootstrap base directory.  UAGB_DIR
+ */
 define('JMA_GHB_BASE_DIRECTORY', plugin_dir_path(__FILE__));
 
 
- /**
-  * URI to Genesis Bootstrap base directory.
-  */
+/**
+ * URI to Genesis Bootstrap base directory.
+ */
 define('JMA_GHB_BASE_URI', plugin_dir_url(__FILE__));
 
-if (! isset($content_width)) {
+if (!isset($content_width)) {
     $content_width = get_theme_mod('jma_gbs_site_width');
 }
 
 function jma_ghb_get_cpt()
 {
     $output = 'objects'; // names or objects, note names is the default
-    $args=array(
-            'public'                => true,
-            'exclude_from_search'   => false
-        );
+    $args = array(
+        'public'                => true,
+        'exclude_from_search'   => false
+    );
     $custom_post_types = get_post_types($args, $output);
-    $remove = array( 'header', 'footer', 'attachment', 'revision');
+    $remove = array('header', 'footer', 'attachment', 'revision');
     foreach ($remove as $value) {
         unset($custom_post_types[$value]);
     }
@@ -101,7 +102,7 @@ spl_autoload_register('jma_ghb_autoloader');
 function jma_ghb_autoloader($class_name)
 {
     if (false !== strpos($class_name, 'JMA_GHB')) {
-        $classes_dir = JMA_GHB_BASE_DIRECTORY. DIRECTORY_SEPARATOR . 'classes';
+        $classes_dir = JMA_GHB_BASE_DIRECTORY . DIRECTORY_SEPARATOR . 'classes';
         $class_file = $class_name . '.php';
         require_once $classes_dir . DIRECTORY_SEPARATOR . $class_file;
     }
@@ -167,7 +168,7 @@ function JMA_GHB_do_header_footer($loc)
     $target_array = jma_ghb_location_switching($loc);
     extract($target_array);
 
-    $page_options = count($page_options)?$page_options:false;
+    $page_options = count($page_options) ? $page_options : false;
 
     if ($target) {
         $trans_name = 'jma_ghb_loc_trns' . $loc . $target . 'for' . $this_id;
